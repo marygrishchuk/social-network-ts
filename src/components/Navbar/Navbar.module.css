@@ -1,0 +1,46 @@
+.nav {
+    grid-area: n;
+    text-align: center;
+    font-size: large;
+    background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");
+    background-size: cover;
+    padding-bottom: 300px;
+}
+
+.linkContainer {
+    background-color: slategray;
+    margin: 8px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.nav a.active {
+    font-weight: bolder;
+    font-size: larger;
+    text-decoration: underline;
+}
+
+.nav a {
+    font-weight: lighter;
+    color: white;
+    text-decoration: none;
+}
+
+.settings {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.friends img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+}
+
+.friends {
+    color: white;
+    font-size: x-small;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-family: "Microsoft Sans Serif";
+}

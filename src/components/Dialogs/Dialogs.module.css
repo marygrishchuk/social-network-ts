@@ -1,0 +1,27 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    font-family: "Microsoft Sans Serif";
+}
+
+.dialogItems {
+    padding: 10px;
+}
+
+.messages {
+    padding: 10px;
+    font-size: smaller;
+    width: 350px;
+}
+
+.textarea {
+    width: 290px;
+    vertical-align: middle;
+    font-size: small;
+    font-family: "Microsoft Sans Serif";
+}
+
+.btn {
+    vertical-align: middle;
+    padding: 8px;
+}
