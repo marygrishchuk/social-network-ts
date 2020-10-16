@@ -12,7 +12,7 @@ export const ProfileInfo = () => {
                  src="https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"/>
         </div>
         <div className={s.description}>
-            Anna
+            Anna Farrel
             <br/>
             City: Minsk
         </div>

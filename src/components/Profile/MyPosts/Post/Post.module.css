@@ -1,19 +1,39 @@
 .item {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "ava name"
+    "ava message"
+    "like .";
     padding: 10px;
     color: #333333;
     font-family: "Microsoft Sans Serif";
     font-size: smaller;
     background-color: white;
-    border-style: solid;
-    border-width: thin;
-    border-color: #333333;
+    border: thin solid #333333;
     border-radius: 5px;
     margin: 3px;
     width: 500px;
 }
 
-.item img {
+.ava {
+    grid-area: ava;
     width: 60px;
     height: 60px;
     border-radius: 100%;
+}
+
+.name {
+    grid-area: name;
+    font-weight: bold;
+}
+
+.message {
+    grid-area: message;
+}
+
+.like {
+    grid-area: like;
+    width: 15px;
 }

@@ -10,6 +10,7 @@ export type DialogType = {
 }
 export type PostType = {
     id: number
+    name: string
     avatarUrl: string
     message: string
     likesCount: number
@@ -56,30 +57,35 @@ export let store: StoreType = {
             posts: [
                 {
                     id: 1,
+                    name: "Johanna Fox",
                     avatarUrl: "https://artsland.ru/files/logos/21246bb6c07d46c71f9b3e51dd7bf1da.png",
                     message: "Hi! How are you?",
                     likesCount: 15
                 },
                 {
                     id: 2,
+                    name: "Kate Winsley",
                     avatarUrl: "https://www.spletnik.ru/thumb/310x310/img/persons/Eva-Mendes-post.jpg",
                     message: "I've learned React.",
                     likesCount: 20
                 },
                 {
                     id: 3,
+                    name: "Fiona Smith",
                     avatarUrl: "https://sun9-53.userapi.com/impf/c846523/v846523336/486aa/WAmlS7FDlqo.jpg?size=400x0&quality=90&crop=6,0,488,488&sign=18d5b99310a2fbe958b38251cab6b5db&c_uniq_tag=arHi9u4Wz5f8hjjNrw4bqf5GiIihueE46UdzBj4g3y0&ava=1",
                     message: "Happy Developer's Day!",
                     likesCount: 5
                 },
                 {
                     id: 4,
+                    name: "Bob Mayers",
                     avatarUrl: "https://bmstu.ru/ps/media/avatars/kartashov/IMG_4688223453130%20(2).jpeg",
                     message: "Are we gonna have a class tomorrow?",
                     likesCount: 1
                 },
                 {
                     id: 5,
+                    name: "Sandra Dalton",
                     avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLTHcfkORUBugIE9Cw71xLu03aUrJIWsPMLg&usqp=CAU",
                     message: "What a wonderful day!:)",
                     likesCount: 7
@@ -171,6 +177,7 @@ export let store: StoreType = {
     addPost() {
         let newPost = {
             id: 5,
+            name: "Anna Farrel",
             avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
             message: this._state.profilePage.newPostText,
             likesCount: 0

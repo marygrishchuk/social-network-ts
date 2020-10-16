@@ -10,4 +10,4 @@ export default {
 
 export const PostElement = () => <Post
       avatarUrl={"https://yt3.ggpht.com/a/AATXAJxegcKj7lnz8MCMgcAz-gpSgPs5u5yMvynOEWiL=s48-c-k-c0xffffffff-no-rj-mo"}
-      message={"Hey"} likesCount={3}/>
+      name={"Dimych"} message={"Hey"} likesCount={3}/>

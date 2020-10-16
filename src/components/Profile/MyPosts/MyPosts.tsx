@@ -12,7 +12,7 @@ type PropsType = {
 
 export const MyPosts = (props: PropsType) => {
 
-    let postElements = props.posts.map(p => <Post avatarUrl={p.avatarUrl} message={p.message} likesCount={p.likesCount}/>)
+    let postElements = props.posts.map(p => <Post avatarUrl={p.avatarUrl} name={p.name} message={p.message} likesCount={p.likesCount}/>)
 
     let newPostElement = React.createRef<any>()
 
