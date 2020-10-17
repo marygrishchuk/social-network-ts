@@ -1,7 +1,8 @@
-import React from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {PostType} from "../../../redux/store";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
+
 
 type PropsType = {
     posts: Array<PostType>
@@ -22,22 +23,26 @@ export const MyPosts = (props: PropsType) => {
                                                   setLiked={props.setLiked}
     />)
 
-    let newPostElement = React.createRef<any>()
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
         props.addPost()
     }
 
     let onPostChange = () => {
-        let text = newPostElement.current.value
-        props.updateNewPostText(text)
+        if (newPostElement.current !== null) {
+            let text = newPostElement.current.value
+            props.updateNewPostText(text)
+        }
     }
 
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>
+        <div className={s.newPost}>
         <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}
-                  placeholder={"Start a Post"} className={s.textArea}></textarea>
+                  placeholder={"Add a Post"} className={s.textArea}></textarea>
         <button className={s.addButton} onClick={addPost}>Add Post</button>
+        </div>
         <div className={s.posts}>
             {postElements}
         </div>

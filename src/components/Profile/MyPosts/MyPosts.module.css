@@ -2,26 +2,36 @@
     padding: 10px;
 }
 
+.newPost {
+    display: grid;
+    grid-template-areas:
+    "textArea addBtn .";
+    grid-template-columns: 7fr 4fr 11fr;
+}
+
 .textArea {
-    width: 300px;
-    height: 40px;
+    grid-area: textArea;
+    width: 430px;
+    height: 30px;
     border-radius: 5px;
-    display: block;
     margin: 0 5px;
 }
 
 .addButton {
+    grid-area: addBtn;
     border-radius: 3px;
-    display: block;
     background-color: slategray;
     color: white;
     border-style: hidden;
-    padding-top: 5px;
     font-family: "Microsoft Sans Serif";
     font-size: smaller;
-    margin: 0 5px;
+    margin: 1px;
+    height: 30px;
+    width: 80px;
+    cursor: pointer;
 }
 
 .posts {
+    display: block;
     margin-top: 10px;
 }

@@ -1,5 +1,5 @@
 .profileInfo {
-    background-color: aqua;
+    background-color: rgba(0,0,0,0.3);
 }
 
 .coverContainer {
@@ -29,9 +29,8 @@
 .description {
     display: inline-block;
     vertical-align: middle;
-    color: #333333;
+    color: white;
     font-family: "Microsoft Sans Serif";
     font-size: large;
-    font-weight: bold;
     margin: 10px;
 }

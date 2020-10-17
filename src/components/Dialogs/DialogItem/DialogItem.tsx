@@ -9,8 +9,8 @@ type PropsType = {
 }
 
 export const DialogItem = (props: PropsType) => {
-    return <div className={s.dialog}>
-        <img src={props.avatar} />
+    return <li className={s.dialog}>
+        <img className={s.avatar} src={props.avatar} />
         <NavLink to={`/dialogs/${props.id}`} activeClassName={s.active}>{props.friendName}</NavLink>
-    </div>
+    </li>
 }

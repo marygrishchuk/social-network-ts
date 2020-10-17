@@ -2,7 +2,8 @@
     grid-area: n;
     text-align: center;
     font-size: large;
-    background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");
+    background-color: #2e3e49;
+    /*background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");*/
     background-size: cover;
     padding-bottom: 300px;
 }

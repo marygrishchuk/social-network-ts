@@ -108,22 +108,22 @@ export let store: StoreType = {
                 {
                     id: 2,
                     name: "Andrey",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHb_qIXEoQLbo7FrGuHeD4zDFCVq7nsk32qQ&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJwpXLyeWh28awYmQxqSPXIM6q9eyw4vbkkCf-nJ=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 3,
                     name: "Sveta",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDxk6W0tQbm8aSCLorlULdSU31H8hNh3-rIw&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 4,
                     name: "Sasha",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSmsuba4xsEi84cCfgkW8OFGSFwNSQfbgn80Q&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJx3tMtZZ9FJWqyZZo8YorLE948V2Fo4dSN3DnrzQQ=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 5,
                     name: "Victor",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTX0T2w5-4-fG8ZUmbzHXhKZYAW22hffc4faA&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJyx6cm5wmcNQDxMqOnQn-PWLGuUphBLcEZGuIaYYA=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 6,
@@ -133,12 +133,12 @@ export let store: StoreType = {
             messages: [{
                 id: 1,
                 message: "Hi",
-                avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDxk6W0tQbm8aSCLorlULdSU31H8hNh3-rIw&usqp=CAU"
+                avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
             },
                 {
                     id: 2,
                     message: "Yo",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDxk6W0tQbm8aSCLorlULdSU31H8hNh3-rIw&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 3,
@@ -153,7 +153,7 @@ export let store: StoreType = {
                 {
                     id: 5,
                     message: "Yo",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDxk6W0tQbm8aSCLorlULdSU31H8hNh3-rIw&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 }],
             newMessageText: ""
         },
@@ -166,12 +166,12 @@ export let store: StoreType = {
                 {
                     id: 2,
                     name: "Andrey",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRHb_qIXEoQLbo7FrGuHeD4zDFCVq7nsk32qQ&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJwpXLyeWh28awYmQxqSPXIM6q9eyw4vbkkCf-nJ=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: 3,
                     name: "Sveta",
-                    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDxk6W0tQbm8aSCLorlULdSU31H8hNh3-rIw&usqp=CAU"
+                    avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 }]
         }
     },

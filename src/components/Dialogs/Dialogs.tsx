@@ -34,7 +34,9 @@ export const Dialogs = (props: PropsType) => {
             {dialogsElements}
         </div>
         <div className={s.messages}>
+            <div className={s.chat}>
             {messagesElements}
+            </div>
             <br/>
             <textarea className={s.textarea} ref={newMessageElement}
                       value={props.newMessageText} onChange={onMessageChange}></textarea>

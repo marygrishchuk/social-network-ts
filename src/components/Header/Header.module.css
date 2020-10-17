@@ -1,11 +1,12 @@
 .header {
     grid-area: h;
-    background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");
+    background-color: #2e3e49;
+    /*background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");*/
     background-size: cover;
 }
 
 .header img {
-    width: 145px;
-    margin-left: 12px;
+    width: 100px;
+    margin-left: 50px;
     border-radius: 5px;
 }
