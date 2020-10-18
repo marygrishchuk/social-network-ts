@@ -36,11 +36,22 @@ export const MyPosts = (props: PropsType) => {
         }
     }
 
+    let onCtrlEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+            if (e.ctrlKey && e.charCode === 13) {
+            addPost()
+        }
+    }
+
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>
         <div className={s.newPost}>
-        <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}
-                  placeholder={"Add a Post"} className={s.textArea}></textarea>
+        <textarea ref={newPostElement}
+                  className={s.textArea}
+                  value={props.newPostText}
+                  onChange={onPostChange}
+                  onKeyPress={onCtrlEnterPress}
+                  placeholder={"Add a Post"}>
+        </textarea>
         <button className={s.addButton} onClick={addPost}>Add Post</button>
         </div>
         <div className={s.posts}>

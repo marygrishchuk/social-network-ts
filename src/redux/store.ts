@@ -184,7 +184,7 @@ export let store: StoreType = {
     addPost() {
         let newPost = {
             id: 6,
-            name: "Anna Farrel",
+            name: "Anna Bell",
             avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
             message: this._state.profilePage.newPostText,
             liked: false,

@@ -37,7 +37,15 @@
     outline: 1px solid slategrey;
 }
 
+.newMessage {
+    display: grid;
+    grid-template-areas:
+    "textarea btn";
+    grid-template-columns: 7fr 1fr;
+}
+
 .textarea {
+    grid-area: textarea;
     width: 290px;
     vertical-align: middle;
     font-size: small;
@@ -45,6 +53,7 @@
 }
 
 .btn {
+    grid-area: btn;
     vertical-align: middle;
     padding: 8px;
     cursor: pointer;
