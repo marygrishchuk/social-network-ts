@@ -190,7 +190,7 @@ export let store: StoreType = {
             liked: false,
             likesCount: 0
         }
-        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.posts.splice(0, 0, newPost)
         this._state.profilePage.newPostText = ""
         this._subscriber(this._state)
     },
