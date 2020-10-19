@@ -4,13 +4,13 @@ import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
 
 type PropsType = {
-    postId: number
+    postId: string
     avatarUrl: string
     name: string
     message: string
     liked: boolean
     likesCount: number
-    setLiked: (postId: number, liked: boolean) => void
+    setLiked: (postId: string, liked: boolean) => void
 }
 
 export const Post = (props: PropsType) => {

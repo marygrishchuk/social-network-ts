@@ -1,4 +1,4 @@
-import React from "react";
+import React, {KeyboardEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
@@ -29,19 +29,29 @@ export const Dialogs = (props: PropsType) => {
         }
     }
 
+    let onCtrlEntPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.ctrlKey && e.charCode === 13) {
+            addMessage()
+        }
+    }
+
     return <div className={s.dialogs}>
         <div className={s.dialogItems}>
             {dialogsElements}
         </div>
         <div className={s.messages}>
             <div className={s.chat}>
-            {messagesElements}
+                {messagesElements}
             </div>
             <br/>
             <div className={s.newMessage}>
-            <textarea className={s.textarea} ref={newMessageElement}
-                      value={props.newMessageText} onChange={onMessageChange}></textarea>
-            <button className={s.btn} onClick={addMessage}>Send</button>
+            <textarea className={s.textarea}
+                      ref={newMessageElement}
+                      value={props.newMessageText}
+                      onChange={onMessageChange}
+                      onKeyPress={onCtrlEntPress}>
+            </textarea>
+                <button className={s.btn} onClick={addMessage}>Send</button>
             </div>
         </div>
     </div>

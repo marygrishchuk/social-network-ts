@@ -7,7 +7,7 @@ type PropsType = {
     profilePage: ProfilePageType
     addPost: () => void
     updateNewPostText: (newPostText: string) => void
-    setLiked: (postId: number, liked: boolean) => void
+    setLiked: (postId: string, liked: boolean) => void
 }
 
 export const Profile = (props: PropsType) => {

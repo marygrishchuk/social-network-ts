@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {KeyboardEvent} from "react";
 import {PostType} from "../../../redux/store";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
@@ -9,7 +9,7 @@ type PropsType = {
     newPostText: string
     addPost: () => void
     updateNewPostText: (newPostText: string) => void
-    setLiked: (postId: number, liked: boolean) => void
+    setLiked: (postId: string, liked: boolean) => void
 }
 
 export const MyPosts = (props: PropsType) => {
@@ -37,7 +37,7 @@ export const MyPosts = (props: PropsType) => {
     }
 
     let onCtrlEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-            if (e.ctrlKey && e.charCode === 13) {
+        if (e.ctrlKey && e.charCode === 13) {
             addPost()
         }
     }
@@ -52,7 +52,7 @@ export const MyPosts = (props: PropsType) => {
                   onKeyPress={onCtrlEnterPress}
                   placeholder={"Add a Post"}>
         </textarea>
-        <button className={s.addButton} onClick={addPost}>Add Post</button>
+            <button className={s.addButton} onClick={addPost}>Add Post</button>
         </div>
         <div className={s.posts}>
             {postElements}
