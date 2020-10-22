@@ -2,6 +2,7 @@ import React from "react";
 import s from './Post.module.css';
 import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
+import {ActionType} from "../../../../redux/store";
 
 type PropsType = {
     postId: string
@@ -10,12 +11,12 @@ type PropsType = {
     message: string
     liked: boolean
     likesCount: number
-    setLiked: (postId: string, liked: boolean) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const Post = (props: PropsType) => {
     let onLikeClick = () => {
-        props.setLiked(props.postId, props.liked)
+        props.dispatch({type: "SET-LIKED", postId: props.postId, liked: props.liked})
     }
 
     return <div className={s.item}>

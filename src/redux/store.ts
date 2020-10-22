@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {ReactDOM} from "react";
 
 export type MessageType = {
     id: string
@@ -41,21 +42,27 @@ export type RootStateType = {
     navBar: NavBarType
 }
 export type StoreType = {
-    _subscriber: (state: RootStateType) => void
     _state: RootStateType
+    _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    addMessage: () => void
-    updateNewMessageText: (newText: string) => void
-    setLiked: (postId: string, liked: boolean) => void
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
+    // addMessage: () => void
+    // updateNewMessageText: (newText: string) => void
+    // setLiked: (postId: string, liked: boolean) => void
+    dispatch: (action: ActionType) => void
+}
+
+export type ActionType = {
+    type: string
+    newText?: string
+    newMessageText?: string
+    postId?: string
+    liked?: boolean
 }
 
 export let store: StoreType = {
-    _subscriber(state: RootStateType) {
-        console.log('state changed')
-    },
     _state: {
         profilePage: {
             posts: [
@@ -95,7 +102,7 @@ export let store: StoreType = {
                     id: v1(),
                     name: "Sandra Dalton",
                     avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLTHcfkORUBugIE9Cw71xLu03aUrJIWsPMLg&usqp=CAU",
-                    message: "What a wonderful day!:)",
+                    message: "Let's get together tonight!:)",
                     liked: true,
                     likesCount: 7
                 }],
@@ -139,22 +146,22 @@ export let store: StoreType = {
             },
                 {
                     id: v1(),
-                    message: "Yo",
+                    message: "What's up?",
                     avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 },
                 {
                     id: v1(),
-                    message: "How is your IT-Kamasutra?",
+                    message: "All good)",
                     avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
                 },
                 {
                     id: v1(),
-                    message: "Yo",
+                    message: "How are you?",
                     avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
                 },
                 {
                     id: v1(),
-                    message: "Yo",
+                    message: "I'm fine too",
                     avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
                 }],
             newMessageText: ""
@@ -177,54 +184,107 @@ export let store: StoreType = {
                 }]
         }
     },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+
     getState() {
         return this._state;
     },
     subscribe(observer: () => void) {
-        this._subscriber = observer;
+        this._callSubscriber = observer;
     },
-    addPost() {
-        let newPost = {
-            id: v1(),
-            name: "Anna Bell",
-            avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
-            message: this._state.profilePage.newPostText,
-            liked: false,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.splice(0, 0, newPost)
-        this._state.profilePage.newPostText = ""
-        this._subscriber(this._state)
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._subscriber(this._state)
-    },
-    addMessage() {
-        let newMessage = {
-            id: v1(),
-            message: this._state.dialogsPage.newMessageText,
-            avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ""
-        this._subscriber(this._state)
-    },
-    updateNewMessageText(newText: string) {
-        this._state.dialogsPage.newMessageText = newText
-        this._subscriber(this._state)
-    },
-    setLiked(postId: string, liked: boolean) {
-        let postToLikeOrUnlike = this._state.profilePage.posts.find(p => p.id === postId)
-        if (postToLikeOrUnlike) {
-            postToLikeOrUnlike.liked = !liked
-            if (postToLikeOrUnlike.liked) {
-                postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount + 1
-            } else {
-                postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
+
+    // addPost() {
+    //     let newPost = {
+    //         id: v1(),
+    //         name: "Anna Bell",
+    //         avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
+    //         message: this._state.profilePage.newPostText,
+    //         liked: false,
+    //         likesCount: 0
+    //     }
+    //     this._state.profilePage.posts.splice(0, 0, newPost)
+    //     this._state.profilePage.newPostText = ""
+    //     this._callSubscriber(this._state)
+    // },
+    // updateNewPostText(newText: string) {
+    //     this._state.profilePage.newPostText = newText
+    //     this._callSubscriber(this._state)
+    // },
+    // addMessage() {
+    //     let newMessage = {
+    //         id: v1(),
+    //         message: this._state.dialogsPage.newMessageText,
+    //         avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
+    //     }
+    //     this._state.dialogsPage.messages.push(newMessage)
+    //     this._state.dialogsPage.newMessageText = ""
+    //     this._callSubscriber(this._state)
+    // },
+    // updateNewMessageText(newText: string) {
+    //     this._state.dialogsPage.newMessageText = newText
+    //     this._callSubscriber(this._state)
+    // },
+    // setLiked(postId: string, liked: boolean) {
+    //     let postToLikeOrUnlike = this._state.profilePage.posts.find(p => p.id === postId)
+    //     if (postToLikeOrUnlike) {
+    //         postToLikeOrUnlike.liked = !liked
+    //         if (postToLikeOrUnlike.liked) {
+    //             postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount + 1
+    //         } else {
+    //             postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
+    //         }
+    //     }
+    //     this._callSubscriber(this._state)
+    // },
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            let newPost = {
+                id: v1(),
+                name: "Anna Bell",
+                avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
+                message: this._state.profilePage.newPostText,
+                liked: false,
+                likesCount: 0
             }
+            this._state.profilePage.posts.splice(0, 0, newPost)
+            this._state.profilePage.newPostText = ""
+            this._callSubscriber(this._state)
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            if (action.newText) {
+                this._state.profilePage.newPostText = action.newText
+                this._callSubscriber(this._state)
+            }
+        } else if (action.type === "ADD-MESSAGE") {
+            let newMessage = {
+                id: v1(),
+                message: this._state.dialogsPage.newMessageText,
+                avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ""
+            this._callSubscriber(this._state)
+        } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
+            if (action.newMessageText) {
+                this._state.dialogsPage.newMessageText = action.newMessageText
+                this._callSubscriber(this._state)
+            }
+        } else if (action.type === "SET-LIKED") {
+            let postToLikeOrUnlike = this._state.profilePage.posts.find(p => p.id === action.postId)
+            if (postToLikeOrUnlike) {
+                postToLikeOrUnlike.liked = !action.liked
+                if (postToLikeOrUnlike.liked) {
+                    postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount + 1
+                } else {
+                    postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
+                }
+            }
+            this._callSubscriber(this._state)
         }
-        this._subscriber(this._state)
     }
 }
 
+declare const window: any
+window.store = store
+//Store - OOP

@@ -2,12 +2,11 @@ import React, {KeyboardEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
-import {DialogsPageType} from "../../redux/store";
+import {ActionType, DialogsPageType} from "../../redux/store";
 
 type PropsType = {
     dialogsPage: DialogsPageType
-    addMessage: () => void
-    updateNewMessageText: (newMessageText: string) => void
+    dispatch: (action: ActionType) => void
     newMessageText: string
 }
 
@@ -20,12 +19,12 @@ export const Dialogs = (props: PropsType) => {
     let newMessageElement = React.createRef<HTMLTextAreaElement>()
 
     let addMessage = () => {
-        props.addMessage()
+        props.dispatch({type: "ADD-MESSAGE"})
     }
 
     let onMessageChange = () => {
         if (newMessageElement.current !== null) {
-            props.updateNewMessageText(newMessageElement.current.value)
+            props.dispatch({type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: newMessageElement.current.value})
         }
     }
 

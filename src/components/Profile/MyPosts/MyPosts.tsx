@@ -1,5 +1,5 @@
 import React, {KeyboardEvent} from "react";
-import {PostType} from "../../../redux/store";
+import {ActionType, PostType} from "../../../redux/store";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 
@@ -7,9 +7,7 @@ import {Post} from "./Post/Post";
 type PropsType = {
     posts: Array<PostType>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-    setLiked: (postId: string, liked: boolean) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const MyPosts = (props: PropsType) => {
@@ -20,19 +18,19 @@ export const MyPosts = (props: PropsType) => {
                                                   message={p.message}
                                                   liked={p.liked}
                                                   likesCount={p.likesCount}
-                                                  setLiked={props.setLiked}
+                                                  dispatch={props.dispatch}
     />)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
-        props.addPost()
+        props.dispatch({type: "ADD-POST"})
     }
 
     let onPostChange = () => {
         if (newPostElement.current !== null) {
             let text = newPostElement.current.value
-            props.updateNewPostText(text)
+            props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
         }
     }
 
