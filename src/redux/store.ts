@@ -59,12 +59,6 @@ export type ActionType = {
     liked?: boolean
 }
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SET_LIKED = "SET-LIKED";
-
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -208,21 +202,7 @@ export let store: StoreType = {
     }
 }
 
-    export const addPostActionCreator = () => ({type: ADD_POST})
 
-    export const updateNewPostTextActionCreator = (text: string) =>
-        ({type: UPDATE_NEW_POST_TEXT, newText: text})
-
-    export const sendMessageCreator = () => ({type: SEND_MESSAGE})
-
-    export const updateNewMessageBodyCreator = (text: string) =>
-        ({type: UPDATE_NEW_MESSAGE_BODY, body: text})
-
-    export const setLikedActionCreator = (postId: string, liked: boolean) =>
-        ({type: SET_LIKED, postId: postId, liked: liked})
-
-    declare const window
-:
-any
+declare const window: any
 window.store = store
 //Store - OOP

@@ -40,4 +40,12 @@ const profileReducer = (state: ProfilePageType, action: ActionType) => {
     }
 }
 
+export const addPostActionCreator = () => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+export const setLikedActionCreator = (postId: string, liked: boolean) =>
+    ({type: SET_LIKED, postId: postId, liked: liked})
+
 export default profileReducer

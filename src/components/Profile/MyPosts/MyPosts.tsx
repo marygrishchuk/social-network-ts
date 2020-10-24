@@ -1,7 +1,8 @@
 import React, {KeyboardEvent} from "react";
-import {ActionType, addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
+import {ActionType, PostType} from "../../../redux/store";
 
 
 type PropsType = {
@@ -28,10 +29,8 @@ export const MyPosts = (props: PropsType) => {
     }
 
     let onPostChange = () => {
-        if (newPostElement.current !== null) {
-            let text = newPostElement.current.value
-            props.dispatch(updateNewPostTextActionCreator(text))
-        }
+        let text = newPostElement.current && newPostElement.current.value
+        text && props.dispatch(updateNewPostTextActionCreator(text))
     }
 
     let onCtrlEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {

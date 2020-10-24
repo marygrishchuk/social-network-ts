@@ -1,8 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent, MouseEvent, useState} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator, StoreType} from "../../redux/store";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {StoreType} from "../../redux/store";
 
 type PropsType = {
     store: StoreType
@@ -17,8 +18,12 @@ export const Dialogs = (props: PropsType) => {
 
     let newMessageBody = state.dialogsPage.newMessageText
 
+    let textarea = React.createRef<HTMLTextAreaElement>()
+
     let onSendMessageClick = () => {
         props.store.dispatch(sendMessageCreator())
+        textarea.current?.focus()
+
     }
 
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,6 +53,7 @@ export const Dialogs = (props: PropsType) => {
                               onChange={onNewMessageChange}
                               onKeyPress={onCtrlEntPress}
                               placeholder={"Enter your message"}
+                              ref={textarea}
                               autoFocus>
                     </textarea>
                 </div>
