@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
+import profileReducer, {profileACTypes} from "./profile-reducer";
+import dialogsReducer, {dialogsACTypes} from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 
 export type MessageType = {
@@ -48,16 +48,10 @@ export type StoreType = {
     _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
-export type ActionType = {
-    type: string
-    newText?: string
-    body?: string
-    postId?: string
-    liked?: boolean
-}
+export type ActionTypes = profileACTypes | dialogsACTypes
 
 export let store: StoreType = {
     _state: {

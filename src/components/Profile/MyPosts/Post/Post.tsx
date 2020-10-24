@@ -3,7 +3,7 @@ import s from './Post.module.css';
 import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
 import {setLikedActionCreator} from "../../../../redux/profile-reducer";
-import {ActionType} from "../../../../redux/store";
+import {ActionTypes} from "../../../../redux/store";
 
 type PropsType = {
     postId: string
@@ -12,7 +12,7 @@ type PropsType = {
     message: string
     liked: boolean
     likesCount: number
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Post = (props: PropsType) => {

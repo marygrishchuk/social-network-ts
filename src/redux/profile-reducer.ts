@@ -1,11 +1,14 @@
-import {ActionType, ProfilePageType} from "./store";
+import {ActionTypes, ProfilePageType} from "./store";
 import {v1} from "uuid";
+
+export type profileACTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof setLikedActionCreator>
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_LIKED = "SET-LIKED";
 
-const profileReducer = (state: ProfilePageType, action: ActionType) => {
+const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -40,12 +43,12 @@ const profileReducer = (state: ProfilePageType, action: ActionType) => {
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
+export const addPostActionCreator = () => ({type: ADD_POST} as const)
 
 export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+    ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
 
 export const setLikedActionCreator = (postId: string, liked: boolean) =>
-    ({type: SET_LIKED, postId: postId, liked: liked})
+    ({type: SET_LIKED, postId: postId, liked: liked} as const)
 
 export default profileReducer

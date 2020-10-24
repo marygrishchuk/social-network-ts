@@ -2,14 +2,13 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {ActionType, PostType} from "../../../redux/store";
-import {mkdtemp} from "fs";
+import {ActionTypes, PostType} from "../../../redux/store";
 
 
 type PropsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const MyPosts = (props: PropsType) => {

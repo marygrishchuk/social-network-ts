@@ -1,6 +1,6 @@
-import {ActionType, NavBarType, RootStateType} from "./store";
+import {ActionTypes, NavBarType} from "./store";
 
-const navbarReducer = (state: NavBarType, action: ActionType) => {
+const navbarReducer = (state: NavBarType, action: ActionTypes) => {
 
     return state;
 }
