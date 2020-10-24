@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, MouseEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
@@ -18,7 +18,7 @@ export const Dialogs = (props: PropsType) => {
 
     let newMessageBody = state.dialogsPage.newMessageText
 
-    let textarea = React.createRef<HTMLTextAreaElement>()
+    const textarea = useRef<HTMLTextAreaElement>(null)
 
     let onSendMessageClick = () => {
         props.store.dispatch(sendMessageCreator())

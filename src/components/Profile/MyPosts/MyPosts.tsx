@@ -1,8 +1,9 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {ActionType, PostType} from "../../../redux/store";
+import {mkdtemp} from "fs";
 
 
 type PropsType = {
@@ -22,15 +23,13 @@ export const MyPosts = (props: PropsType) => {
                                                   dispatch={props.dispatch}
     />)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-
     let addPost = () => {
         props.dispatch(addPostActionCreator())
     }
 
-    let onPostChange = () => {
-        let text = newPostElement.current && newPostElement.current.value
-        text && props.dispatch(updateNewPostTextActionCreator(text))
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        props.dispatch(updateNewPostTextActionCreator(text))
     }
 
     let onCtrlEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -42,8 +41,7 @@ export const MyPosts = (props: PropsType) => {
     return <div className={s.postsBlock}>
         <h3>My Posts</h3>
         <div className={s.newPost}>
-        <textarea ref={newPostElement}
-                  className={s.textArea}
+        <textarea className={s.textArea}
                   value={props.newPostText}
                   onChange={onPostChange}
                   onKeyPress={onCtrlEnterPress}
