@@ -17,7 +17,6 @@
 
 .nav a.active {
     font-weight: bolder;
-    font-size: larger;
     text-decoration: underline;
 }
 

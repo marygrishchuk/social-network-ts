@@ -1,36 +1,34 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
-import {ActionType, DialogsPageType} from "../../redux/store";
+import {sendMessageCreator, updateNewMessageBodyCreator, StoreType} from "../../redux/store";
 
 type PropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionType) => void
-    newMessageText: string
+    store: StoreType
 }
 
 export const Dialogs = (props: PropsType) => {
+    let state = props.store.getState()
 
-    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem avatar={d.avatar} friendName={d.name}
+    let dialogsElements = state.dialogsPage.dialogs.map(d => <DialogItem avatar={d.avatar} friendName={d.name}
                                                                          id={d.id}/>)
-    let messagesElements = props.dialogsPage.messages.map(m => <Message avatar={m.avatar} message={m.message}/>)
+    let messagesElements = state.dialogsPage.messages.map(m => <Message avatar={m.avatar} message={m.message}/>)
 
-    let newMessageElement = React.createRef<HTMLTextAreaElement>()
+    let newMessageBody = state.dialogsPage.newMessageText
 
-    let addMessage = () => {
-        props.dispatch({type: "ADD-MESSAGE"})
+    let onSendMessageClick = () => {
+        props.store.dispatch(sendMessageCreator())
     }
 
-    let onMessageChange = () => {
-        if (newMessageElement.current !== null) {
-            props.dispatch({type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: newMessageElement.current.value})
-        }
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.currentTarget.value
+        props.store.dispatch(updateNewMessageBodyCreator(body))
     }
 
     let onCtrlEntPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.ctrlKey && e.charCode === 13) {
-            addMessage()
+            onSendMessageClick()
         }
     }
 
@@ -44,13 +42,18 @@ export const Dialogs = (props: PropsType) => {
             </div>
             <br/>
             <div className={s.newMessage}>
-            <textarea className={s.textarea}
-                      ref={newMessageElement}
-                      value={props.newMessageText}
-                      onChange={onMessageChange}
-                      onKeyPress={onCtrlEntPress}>
-            </textarea>
-                <button className={s.btn} onClick={addMessage}>Send</button>
+                <div>
+                    <textarea className={s.textarea}
+                              value={newMessageBody}
+                              onChange={onNewMessageChange}
+                              onKeyPress={onCtrlEntPress}
+                              placeholder={"Enter your message"}
+                              autoFocus>
+                    </textarea>
+                </div>
+                <div>
+                    <button className={s.btn} onClick={onSendMessageClick}>Send</button>
+                </div>
             </div>
         </div>
     </div>

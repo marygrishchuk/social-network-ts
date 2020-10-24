@@ -1,5 +1,7 @@
 import {v1} from "uuid";
-import {ReactDOM} from "react";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import navbarReducer from "./navbar-reducer";
 
 export type MessageType = {
     id: string
@@ -46,21 +48,22 @@ export type StoreType = {
     _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
-    // addMessage: () => void
-    // updateNewMessageText: (newText: string) => void
-    // setLiked: (postId: string, liked: boolean) => void
     dispatch: (action: ActionType) => void
 }
 
 export type ActionType = {
     type: string
     newText?: string
-    newMessageText?: string
+    body?: string
     postId?: string
     liked?: boolean
 }
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SEND_MESSAGE = "SEND-MESSAGE";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SET_LIKED = "SET-LIKED";
 
 export let store: StoreType = {
     _state: {
@@ -195,96 +198,31 @@ export let store: StoreType = {
         this._callSubscriber = observer;
     },
 
-    // addPost() {
-    //     let newPost = {
-    //         id: v1(),
-    //         name: "Anna Bell",
-    //         avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
-    //         message: this._state.profilePage.newPostText,
-    //         liked: false,
-    //         likesCount: 0
-    //     }
-    //     this._state.profilePage.posts.splice(0, 0, newPost)
-    //     this._state.profilePage.newPostText = ""
-    //     this._callSubscriber(this._state)
-    // },
-    // updateNewPostText(newText: string) {
-    //     this._state.profilePage.newPostText = newText
-    //     this._callSubscriber(this._state)
-    // },
-    // addMessage() {
-    //     let newMessage = {
-    //         id: v1(),
-    //         message: this._state.dialogsPage.newMessageText,
-    //         avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
-    //     }
-    //     this._state.dialogsPage.messages.push(newMessage)
-    //     this._state.dialogsPage.newMessageText = ""
-    //     this._callSubscriber(this._state)
-    // },
-    // updateNewMessageText(newText: string) {
-    //     this._state.dialogsPage.newMessageText = newText
-    //     this._callSubscriber(this._state)
-    // },
-    // setLiked(postId: string, liked: boolean) {
-    //     let postToLikeOrUnlike = this._state.profilePage.posts.find(p => p.id === postId)
-    //     if (postToLikeOrUnlike) {
-    //         postToLikeOrUnlike.liked = !liked
-    //         if (postToLikeOrUnlike.liked) {
-    //             postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount + 1
-    //         } else {
-    //             postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
-    //         }
-    //     }
-    //     this._callSubscriber(this._state)
-    // },
     dispatch(action) {
-        if (action.type === "ADD-POST") {
-            let newPost = {
-                id: v1(),
-                name: "Anna Bell",
-                avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
-                message: this._state.profilePage.newPostText,
-                liked: false,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.splice(0, 0, newPost)
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            if (action.newText) {
-                this._state.profilePage.newPostText = action.newText
-                this._callSubscriber(this._state)
-            }
-        } else if (action.type === "ADD-MESSAGE") {
-            let newMessage = {
-                id: v1(),
-                message: this._state.dialogsPage.newMessageText,
-                avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ""
-            this._callSubscriber(this._state)
-        } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
-            if (action.newMessageText) {
-                this._state.dialogsPage.newMessageText = action.newMessageText
-                this._callSubscriber(this._state)
-            }
-        } else if (action.type === "SET-LIKED") {
-            let postToLikeOrUnlike = this._state.profilePage.posts.find(p => p.id === action.postId)
-            if (postToLikeOrUnlike) {
-                postToLikeOrUnlike.liked = !action.liked
-                if (postToLikeOrUnlike.liked) {
-                    postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount + 1
-                } else {
-                    postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
-                }
-            }
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.navBar = navbarReducer(this._state.navBar, action)
+
+        this._callSubscriber(this._state)
+
     }
 }
 
-declare const window: any
+    export const addPostActionCreator = () => ({type: ADD_POST})
+
+    export const updateNewPostTextActionCreator = (text: string) =>
+        ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+    export const sendMessageCreator = () => ({type: SEND_MESSAGE})
+
+    export const updateNewMessageBodyCreator = (text: string) =>
+        ({type: UPDATE_NEW_MESSAGE_BODY, body: text})
+
+    export const setLikedActionCreator = (postId: string, liked: boolean) =>
+        ({type: SET_LIKED, postId: postId, liked: liked})
+
+    declare const window
+:
+any
 window.store = store
 //Store - OOP

@@ -2,7 +2,7 @@ import React from "react";
 import s from './Post.module.css';
 import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
-import {ActionType} from "../../../../redux/store";
+import {ActionType, setLikedActionCreator} from "../../../../redux/store";
 
 type PropsType = {
     postId: string
@@ -16,7 +16,7 @@ type PropsType = {
 
 export const Post = (props: PropsType) => {
     let onLikeClick = () => {
-        props.dispatch({type: "SET-LIKED", postId: props.postId, liked: props.liked})
+        props.dispatch(setLikedActionCreator(props.postId, props.liked))
     }
 
     return <div className={s.item}>

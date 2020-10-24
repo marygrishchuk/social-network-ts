@@ -1,5 +1,5 @@
 import React, {KeyboardEvent} from "react";
-import {ActionType, PostType} from "../../../redux/store";
+import {ActionType, addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/store";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 
@@ -24,13 +24,13 @@ export const MyPosts = (props: PropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
-        props.dispatch({type: "ADD-POST"})
+        props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = () => {
         if (newPostElement.current !== null) {
             let text = newPostElement.current.value
-            props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
+            props.dispatch(updateNewPostTextActionCreator(text))
         }
     }
 
