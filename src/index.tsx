@@ -4,22 +4,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {HashRouter} from 'react-router-dom';
-import store, {RootStateType} from './redux/redux-store';
+import store from './redux/redux-store';
+import {Provider} from "./StoreContext";
 
-let rerenderEntireTree = (state: RootStateType) => {
+let rerenderEntireTree = () => {
     ReactDOM.render(
         <HashRouter>
-            <App state={state} store={store}/>
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </HashRouter>,
         document.getElementById('root')
     );
 }
 
-rerenderEntireTree(store.getState())     //нужно, чтобы происходила исходная отрисовка
+rerenderEntireTree()     //нужно, чтобы происходила исходная отрисовка
 
 store.subscribe(() => {
-        let state = store.getState()
-        rerenderEntireTree(state)
+        rerenderEntireTree()
     }
 )  //нужно, чтобы происходили перерисовки после изменений (в state)
 

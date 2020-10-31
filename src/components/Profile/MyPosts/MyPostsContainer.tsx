@@ -4,33 +4,38 @@ import {
     setLikedActionCreator,
     updateNewPostTextActionCreator
 } from "../../../redux/profile-reducer";
-import {StoreType} from "../../../redux/redux-store";
 import {MyPosts} from "./MyPosts";
+import StoreContext from "../../../StoreContext";
 
 
-type PropsType = {
-    store: StoreType
-}
+export const MyPostsContainer = () => {
 
-export const MyPostsContainer = (props: PropsType) => {
-    let state = props.store.getState()
+    return <StoreContext.Consumer>
+        {
+            (store) => {
+                if (store) {
+                    let state = store.getState()
 
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreator())
-    }
+                    let addPost = () => {
+                        store.dispatch(addPostActionCreator())
+                    }
 
-    let onPostChange = (newPostText: string) => {
-        props.store.dispatch(updateNewPostTextActionCreator(newPostText))
-    }
+                    let onPostChange = (newPostText: string) => {
+                        store.dispatch(updateNewPostTextActionCreator(newPostText))
+                    }
 
-    let onLikeClick = (postId: string, liked: boolean) => {
-        props.store.dispatch(setLikedActionCreator(postId, liked))
-    }
+                    let onLikeClick = (postId: string, liked: boolean) => {
+                        store.dispatch(setLikedActionCreator(postId, liked))
+                    }
 
-    return <MyPosts
-        addPost={addPost}
-        updateNewPostText={onPostChange}
-        posts={state.profilePage.posts}
-        setLiked={onLikeClick}
-        newPostText={state.profilePage.newPostText}/>
+                    return <MyPosts
+                        addPost={addPost}
+                        updateNewPostText={onPostChange}
+                        posts={state.profilePage.posts}
+                        setLiked={onLikeClick}
+                        newPostText={state.profilePage.newPostText}/>
+                }
+            }
+        }
+    </StoreContext.Consumer>
 }

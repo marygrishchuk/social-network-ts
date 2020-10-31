@@ -1,15 +1,9 @@
 import React from "react";
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import {NavBarType} from "../../redux/navbar-reducer";
+import {FriendsDisplayContainer} from "./FriendsDisplay/FriendsDisplayContainer";
 
-type PropsType = {
-    state: NavBarType
-}
-
-export const Navbar = (props: PropsType) => {
-
-    let friends = props.state.friends.map( f => <div><img src={f.avatar}/><br/>{f.name}</div>)
+export const Navbar = () => {
 
     return <nav className={s.nav}>
         <div className={s.linkContainer}>
@@ -30,8 +24,6 @@ export const Navbar = (props: PropsType) => {
         <div className={s.linkContainer}>
             <NavLink to="/friends" activeClassName={s.active}>Friends</NavLink>
         </div>
-        <div className={s.friends}>
-            { friends }
-        </div>
+        <FriendsDisplayContainer/>
     </nav>
 }
