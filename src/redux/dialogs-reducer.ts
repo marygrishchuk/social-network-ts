@@ -92,15 +92,19 @@ const dialogsReducer = (state = initialState, action: ActionTypes) => {
                 message: state.newMessageText,
                 avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ""
-            return state
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newMessageText: ""
+            }
         case UPDATE_NEW_MESSAGE_BODY:
             if (action.body) {
-                state.newMessageText = action.body
-
+                return {
+                    ...state,
+                    newMessageText: action.body
+                }
             }
-            return state
+            break
         default:
             return state;
     }

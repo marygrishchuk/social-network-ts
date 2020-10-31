@@ -1,18 +1,8 @@
 import profileReducer, {profileACTypes, ProfilePageType} from "./profile-reducer";
 import dialogsReducer, {dialogsACTypes, DialogsPageType} from "./dialogs-reducer";
 import navbarReducer, {NavBarType} from "./navbar-reducer";
-import {combineReducers, createStore} from "redux";
-import App from "../App";
-import StoreContext from "../StoreContext";
-import React, {PropsWithChildren, ReactNode, ReactNodeArray, ReactPortal} from "react";
-
-export type StoreType = {
-    _state: RootStateType
-    _callSubscriber: (state: RootStateType) => void
-    getState: () => RootStateType
-    subscribe: (observer: () => void) => void
-    dispatch: (action: ActionTypes) => void
-}
+import {combineReducers, createStore, Store} from "redux";
+import React from "react";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -28,7 +18,7 @@ let reducers = combineReducers({
     navBar: navbarReducer,
 })
 
-let store: StoreType = createStore(reducers)
+let store: Store = createStore(reducers)
 
 export default store
 

@@ -1,7 +1,7 @@
 import React from "react";
 
-export const Friends = () => {
+export const UserSearch = () => {
     return <div>
-        Friends
+        Users
     </div>
 }

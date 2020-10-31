@@ -77,16 +77,25 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
                 liked: false,
                 likesCount: 0
             }
-            state.posts.splice(0, 0, newPost)
-            state.newPostText = ""
-            return state;
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                newPostText: ""
+            };
         case UPDATE_NEW_POST_TEXT:
             if (action.newText) {
-                state.newPostText = action.newText
+                return {
+                    ...state,
+                    newPostText: action.newText
+                }
             }
-            return state;
+            break
         case SET_LIKED:
-            let postToLikeOrUnlike = state.posts.find(p => p.id === action.postId)
+            let stateCopy = {
+                ...state,
+                posts: [...state.posts]
+            }
+            let postToLikeOrUnlike = stateCopy.posts.find(p => p.id === action.postId)
             if (postToLikeOrUnlike) {
                 postToLikeOrUnlike.liked = !action.liked
                 if (postToLikeOrUnlike.liked) {
@@ -95,7 +104,7 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
                     postToLikeOrUnlike.likesCount = postToLikeOrUnlike.likesCount - 1
                 }
             }
-            return state;
+            return stateCopy;
         default:
             return state;
     }
