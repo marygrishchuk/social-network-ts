@@ -2,8 +2,6 @@ import React from "react";
 import s from './Post.module.css';
 import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
-import {setLikedActionCreator} from "../../../../redux/profile-reducer";
-import {ActionTypes} from "../../../../redux/redux-store";
 
 type PropsType = {
     postId: string
@@ -12,12 +10,12 @@ type PropsType = {
     message: string
     liked: boolean
     likesCount: number
-    dispatch: (action: ActionTypes) => void
+    setLiked: (postId: string, liked: boolean) => void
 }
 
 export const Post = (props: PropsType) => {
     let onLikeClick = () => {
-        props.dispatch(setLikedActionCreator(props.postId, props.liked))
+        props.setLiked(props.postId, props.liked)
     }
 
     return <div className={s.item}>
