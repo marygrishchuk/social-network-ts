@@ -1,7 +1,8 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionTypes, ProfilePageType} from "../../redux/store";
+import {ProfilePageType} from "../../redux/profile-reducer";
+import {ActionTypes} from "../../redux/redux-store";
 
 type PropsType = {
     profilePage: ProfilePageType

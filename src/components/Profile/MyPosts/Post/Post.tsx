@@ -3,7 +3,7 @@ import s from './Post.module.css';
 import likeImg from './like.svg';
 import notLikedImg from './notLiked.png';
 import {setLikedActionCreator} from "../../../../redux/profile-reducer";
-import {ActionTypes} from "../../../../redux/store";
+import {ActionTypes} from "../../../../redux/redux-store";
 
 type PropsType = {
     postId: string

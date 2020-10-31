@@ -1,9 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useRef} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
-import {StoreType} from "../../redux/store";
+import {StoreType} from "../../redux/redux-store";
 
 type PropsType = {
     store: StoreType

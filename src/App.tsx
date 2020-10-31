@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Route} from 'react-router-dom'
-import {RootStateType} from './redux/store';
+import {RootStateType} from './redux/redux-store';
 import {Header} from './components/Header/Header';
 import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
@@ -10,7 +10,7 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {Friends} from './components/Friends/Friends';
-import {StoreType} from "./redux/store";
+import {StoreType} from "./redux/redux-store";
 
 export type PropsType = {
     store: StoreType

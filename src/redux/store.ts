@@ -3,17 +3,19 @@ import profileReducer, {profileACTypes} from "./profile-reducer";
 import dialogsReducer, {dialogsACTypes} from "./dialogs-reducer";
 import navbarReducer from "./navbar-reducer";
 
-export type MessageType = {
+type MessageType = {
     id: string
     message: string
     avatar: string
 }
-export type DialogType = {
+
+type DialogType = {
     id: string
     name: string
     avatar: string
 }
-export type PostType = {
+
+type PostType = {
     id: string
     name: string
     avatarUrl: string
@@ -21,29 +23,29 @@ export type PostType = {
     liked: boolean
     likesCount: number
 }
-export type FriendsType = {
+type FriendsType = {
     id: string
     name: string
     avatar: string
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageText: string
 }
-export type NavBarType = {
+type NavBarType = {
     friends: Array<FriendsType>
 }
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     navBar: NavBarType
 }
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
@@ -51,9 +53,9 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = profileACTypes | dialogsACTypes
+type ActionTypes = profileACTypes | dialogsACTypes
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -195,8 +197,3 @@ export let store: StoreType = {
 
     }
 }
-
-
-declare const window: any
-window.store = store
-//Store - OOP
