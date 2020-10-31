@@ -2,33 +2,35 @@ import React, {ChangeEvent, KeyboardEvent, useRef} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {DialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {StoreType} from "../../redux/redux-store";
 
 type PropsType = {
-    store: StoreType
+    dialogsPage: DialogsPageType
+    sendMessage: () => void
+    updateNewMessageBody: (newMessageText: string) => void
 }
 
 export const Dialogs = (props: PropsType) => {
-    let state = props.store.getState()
+    let state = props.dialogsPage
 
-    let dialogsElements = state.dialogsPage.dialogs.map(d => <DialogItem avatar={d.avatar} friendName={d.name}
+    let dialogsElements = state.dialogs.map(d => <DialogItem avatar={d.avatar} friendName={d.name}
                                                                          id={d.id}/>)
-    let messagesElements = state.dialogsPage.messages.map(m => <Message avatar={m.avatar} message={m.message}/>)
+    let messagesElements = state.messages.map(m => <Message avatar={m.avatar} message={m.message}/>)
 
-    let newMessageBody = state.dialogsPage.newMessageText
+    let newMessageBody = state.newMessageText
 
     const textarea = useRef<HTMLTextAreaElement>(null)
 
     let onSendMessageClick = () => {
-        props.store.dispatch(sendMessageCreator())
+        props.sendMessage()
         textarea.current?.focus()
 
     }
 
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value
-        props.store.dispatch(updateNewMessageBodyCreator(body))
+        props.updateNewMessageBody(body)
     }
 
     let onCtrlEntPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
