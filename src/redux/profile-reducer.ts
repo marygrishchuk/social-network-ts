@@ -89,7 +89,7 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
                     newPostText: action.newText
                 }
             }
-            break
+            return state
         case SET_LIKED:
             let stateCopy = {
                 ...state,
