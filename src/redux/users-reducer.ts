@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 import {ActionTypes} from "./redux-store";
 
 export type usersACTypes = ReturnType<typeof followAC>
@@ -6,15 +5,15 @@ export type usersACTypes = ReturnType<typeof followAC>
     | ReturnType<typeof setUsersAC>
 
 export type UserType = {
+    name: string
     id: string
-    photoURL: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
+    uniqueUrlName: string | null
+    photos: {
+        small: string | null
+        large: string | null
     }
+    status: string | null
+    followed: boolean
 }
 export type UsersPageType = {
     users: Array<UserType>
@@ -37,7 +36,7 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
                 //  Analogue:
                 //users: state.users.map(u => u)
                 //We need to copy only the item that needs to be changed!
-                users: state.users.map(u => {
+                users: state.users.map((u: any) => {
                     if (u.id === action.userId) {
                         return {...u, followed: true}
                     } //we've changed only 1 object in the array!
@@ -48,7 +47,7 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
+                users: state.users.map((u: any) => {
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     } //we've changed only 1 object in the array!
