@@ -36,3 +36,11 @@
     height: 50px;
     border-radius: 100%;
 }
+
+.pageNumber {
+    cursor: pointer;
+}
+span.selected {
+    font-weight: bold;
+    cursor: pointer;
+}
