@@ -1,20 +1,38 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
+import {ProfileType} from "../../../redux/profile-reducer";
+import userPhoto from "../../../assets/images/user-photo.png";
+import Preloader from "../../common/Preloader/Preloader";
 
-export const ProfileInfo = () => {
+type PropsType = {
+    profile: null | ProfileType
+}
+
+export const ProfileInfo = (props: PropsType) => {
+
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return <div className={s.profileInfo}>
         <div className={s.coverContainer}>
             <img className={s.profileCover}
                  src="https://belarusfacts.by/upload/test/photos_png/Tourism/360/preview__3_.jpg"/>
         </div>
         <div className={s.avatarContainer}>
-            <img className={s.avatar}
-                 src="https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"/>
+            {props.profile &&
+            <img className={s.avatar} src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
+            }
         </div>
         <div className={s.description}>
-            Anna Bell
+            {props.profile ? props.profile.fullName : null}
             <br/>
-            City: Minsk
+            About me: {props.profile &&
+        props.profile.aboutMe ? `"${props.profile.aboutMe}"` : null}
+            <br/>
+            Looking for a job:
+            {props.profile &&
+            props.profile.lookingForAJob ? ' yes' : ' no'}
         </div>
     </div>
 }
