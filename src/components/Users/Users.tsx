@@ -55,7 +55,7 @@ const Users = (props: PropsType) => {
             <div className={s.spanBlock}>
                 <div className={s.divBlock + " " + s.photoBtnBlock}>
                     <div>
-                        <NavLink to={'/profile' + u.id}>
+                        <NavLink to={'/profile/' + u.id}>
                             <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
                         </NavLink>
                     </div>
