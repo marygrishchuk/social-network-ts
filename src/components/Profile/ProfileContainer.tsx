@@ -12,7 +12,7 @@ type PathParamsType = {
 
 type PropsType = RouteComponentProps<PathParamsType> & {
     profile: null | ProfileType
-    setUserProfile: (profile: null | ProfileType) => void
+    setUserProfile: (profile: ProfileType) => void
 }
 
 class ProfileContainer extends React.Component<PropsType> {

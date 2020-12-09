@@ -146,7 +146,7 @@ export const updateNewPostTextActionCreator = (text: string) =>
 export const setLikedActionCreator = (postId: string, liked: boolean) =>
     ({type: SET_LIKED, postId: postId, liked: liked} as const)
 
-export const setUserProfile = (profile: null | ProfileType) =>
+export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 
 export default profileReducer

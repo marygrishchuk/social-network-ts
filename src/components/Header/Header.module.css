@@ -1,7 +1,6 @@
 .header {
     grid-area: h;
     background-color: #2e3e49;
-    /*background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");*/
     background-size: cover;
 }
 
@@ -9,4 +8,15 @@
     width: 80px;
     margin-left: 50px;
     border-radius: 5px;
+}
+
+.loginBlock {
+    float: right;
+    color: white;
+}
+.loginBlock a {
+    color: white;
+}
+.loginBlock img {
+    width: 50px;
 }
