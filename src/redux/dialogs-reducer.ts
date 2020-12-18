@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {ActionTypes} from "./redux-store";
+import userPhoto from "../assets/images/user-photo.png"
 
 export type DialogType = {
     id: string
@@ -26,7 +27,7 @@ let initialState: DialogsPageType = {
         {
             id: v1(),
             name: "Dimych",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxegcKj7lnz8MCMgcAz-gpSgPs5u5yMvynOEWiL=s48-c-k-c0xffffffff-no-rj-mo"
+            avatar: userPhoto
         },
         {
             id: v1(),

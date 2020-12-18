@@ -21,14 +21,14 @@ type PropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: Array<boolean | string>
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-    toggleFollowingProgress: (followingInProgress: boolean) => void
+    toggleFollowingProgress: (followingInProgress: boolean, userId: string) => void
 }
 
 class UsersContainer extends React.Component<PropsType> {
@@ -76,7 +76,7 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: Array<boolean | string>
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {

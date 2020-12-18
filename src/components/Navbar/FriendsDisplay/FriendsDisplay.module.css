@@ -1,13 +1,16 @@
 .friends img {
     width: 45px;
     height: 45px;
+    padding: 5px;
     border-radius: 100%;
 }
 
 .friends {
     color: white;
     font-size: x-small;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    flex-direction: row;
     font-family: "Microsoft Sans Serif";
 }

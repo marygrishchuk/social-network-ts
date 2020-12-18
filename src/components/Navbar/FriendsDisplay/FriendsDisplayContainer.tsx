@@ -1,29 +1,36 @@
 import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
-import {ActionTypes, RootStateType} from "../../../redux/redux-store";
+import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {FriendsType} from "../../../redux/navbar-reducer";
+import {toggleIsFetching} from "../../../redux/navbar-reducer";
+import {UserType} from "../../../redux/users-reducer";
 
-type MapStatePropsType = {
-    friends: Array<FriendsType>
+type PropsType = {
+    users: Array<UserType>
+    isFetching: boolean
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
-type MapDispatchPropsType = {
-    //no callbacks yet
+class FriendsDisplayContainer extends React.Component<PropsType> {
+    render() {
+
+        return <>
+            <FriendsDisplay users={this.props.users}/>
+        </>
+    }
+}
+
+
+type MapStatePropsType = {
+    isFetching: boolean
+    users: Array<UserType>
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
-        friends: state.navBar.friends
-    } as const
-}
-
-const mapDispatchToProps = (dispatch: (action: ActionTypes) => void): MapDispatchPropsType => {
-    return {
-        //no callbacks yet
+        isFetching: state.navBar.isFetching,
+        users: state.usersPage.users
     }
 }
 
-const FriendsDisplayContainer = connect(mapStateToProps, mapDispatchToProps)(FriendsDisplay)
-
-export default FriendsDisplayContainer
+export default connect(mapStateToProps, {toggleIsFetching})(FriendsDisplayContainer)

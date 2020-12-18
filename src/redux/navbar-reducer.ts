@@ -1,36 +1,31 @@
-import { v1 } from "uuid";
 import {ActionTypes} from "./redux-store";
+import {UserType} from "./users-reducer";
 
-export type FriendsType = {
-    id: string
-    name: string
-    avatar: string
-}
+export type navbarACTypes =
+    | ReturnType<typeof toggleIsFetching>
+
+
 export type NavBarType = {
-    friends: Array<FriendsType>
+    isFetching: boolean
 }
 
 let initialState: NavBarType = {
-    friends: [{
-        id: v1(),
-        name: "Dimych",
-        avatar: "https://yt3.ggpht.com/a/AATXAJxegcKj7lnz8MCMgcAz-gpSgPs5u5yMvynOEWiL=s48-c-k-c0xffffffff-no-rj-mo"
-    },
-        {
-            id: v1(),
-            name: "Andrey",
-            avatar: "https://yt3.ggpht.com/a/AATXAJwpXLyeWh28awYmQxqSPXIM6q9eyw4vbkkCf-nJ=s176-c-k-c0x00ffffff-no-rj-mo"
-        },
-        {
-            id: v1(),
-            name: "Sveta",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
-        }]
+    isFetching: false
 }
 
 const navbarReducer = (state = initialState, action: ActionTypes) => {
-
-    return state;
+    switch (action.type) {
+        case "TOGGLE_IS_FETCHING": {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
+        default:
+            return state;
+    }
 }
+
+export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
 
 export default navbarReducer
