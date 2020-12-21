@@ -1,9 +1,10 @@
 import profileReducer, {profileACTypes, ProfilePageType} from "./profile-reducer";
 import dialogsReducer, {dialogsACTypes, DialogsPageType} from "./dialogs-reducer";
 import navbarReducer, {navbarACTypes, NavBarType} from "./navbar-reducer";
-import {combineReducers, createStore, Store} from "redux";
+import {applyMiddleware, combineReducers, createStore, Store, StoreEnhancer} from "redux";
 import usersReducer, {usersACTypes, UsersPageType} from "./users-reducer";
 import authReducer, {authACTypes, AuthType} from "./auth-reducer";
+import thunkMiddleware from "redux-thunk";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -23,7 +24,7 @@ let reducers = combineReducers({
     auth: authReducer
 }) //above are branches of the global state
 
-let store: Store = createStore(reducers)
+let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export default store
 
