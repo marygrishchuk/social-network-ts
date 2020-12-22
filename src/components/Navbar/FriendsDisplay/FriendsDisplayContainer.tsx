@@ -2,35 +2,34 @@ import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
 import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {toggleIsFetching} from "../../../redux/navbar-reducer";
 import {UserType} from "../../../redux/users-reducer";
+import {setFriends} from "../../../redux/navbar-reducer";
 
 type PropsType = {
-    users: Array<UserType>
-    isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
+    friends: Array<UserType>
+    setFriends: () => void
 }
 
 class FriendsDisplayContainer extends React.Component<PropsType> {
+    componentDidMount() {
+        this.props.setFriends()
+    }
     render() {
-
         return <>
-            <FriendsDisplay users={this.props.users}/>
+            <FriendsDisplay friends={this.props.friends}/>
         </>
     }
 }
 
 
 type MapStatePropsType = {
-    isFetching: boolean
-    users: Array<UserType>
+    friends: Array<UserType>
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
-        isFetching: state.navBar.isFetching,
-        users: state.usersPage.users
+        friends: state.navBar.friends,
     }
 }
 
-export default connect(mapStateToProps, {toggleIsFetching})(FriendsDisplayContainer)
+export default connect(mapStateToProps, {setFriends})(FriendsDisplayContainer)

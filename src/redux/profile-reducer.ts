@@ -1,9 +1,12 @@
 import {v1} from "uuid";
 import {ActionTypes} from "./redux-store";
+import {Dispatch} from "redux";
+import {profileAPI, userAPI} from "../api/api";
+import {setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching} from "./users-reducer";
 
 export type profileACTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setLikedActionCreator>
-    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserProfileSuccess>
 
 export type ProfileType = {
     aboutMe: null | string
@@ -146,7 +149,13 @@ export const updateNewPostTextActionCreator = (text: string) =>
 export const setLikedActionCreator = (postId: string, liked: boolean) =>
     ({type: SET_LIKED, postId: postId, liked: liked} as const)
 
-export const setUserProfile = (profile: ProfileType) =>
+export const setUserProfileSuccess = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
+
+export const setUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getUserProfile(userId).then(data => {
+        dispatch(setUserProfileSuccess(data))
+    })
+}
 
 export default profileReducer

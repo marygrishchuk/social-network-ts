@@ -14,6 +14,7 @@ type PropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onPageChanged: (currentPage: number) => void
+    setFriends: () => void
 }
 
 const Users = (props: PropsType) => {
@@ -64,9 +65,15 @@ const Users = (props: PropsType) => {
                     <div>
                         {u.followed
                             ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
+                                      onClick={() => {
+                                          props.unfollow(u.id)
+                                          props.setFriends()
+                                      }}>Unfollow</button>
                             : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => { props.follow(u.id) }}>Follow</button>
+                                      onClick={() => {
+                                          props.follow(u.id)
+                                          props.setFriends()
+                                      }}>Follow</button>
                         }
                     </div>
                 </div>

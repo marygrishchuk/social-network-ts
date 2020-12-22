@@ -44,7 +44,7 @@ let initialState: UsersPageType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
 }
 
 const usersReducer = (state = initialState, action: ActionTypes) => {
@@ -68,7 +68,7 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
                         return {...u, followed: false}
                     } //we've changed only 1 object in the array!
                     return u
-                })
+                }),
             }
 
         case SET_USERS: {
@@ -76,7 +76,7 @@ const usersReducer = (state = initialState, action: ActionTypes) => {
                 ...state,
                 // users: [...state.users, ...action.users]
                 //we don't want to add new array of users from action to the state array
-                users: action.users
+                users: action.users,
             }
         }
         case SET_CURRENT_PAGE: {

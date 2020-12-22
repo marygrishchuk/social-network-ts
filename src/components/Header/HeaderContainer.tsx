@@ -9,22 +9,13 @@ type PropsType = {
     isFetching: boolean
     isAuth: boolean
     login: string
-    setAuthUserData: (id: string, email: string, login: string) => void
-    toggleIsFetching: (isFetching: boolean) => void
+    setAuthUserData: () => void
 }
 
 class HeaderContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        authAPI.getAuth().then(data => {
-                if (data.resultCode === 0) {
-                    this.props.toggleIsFetching(false)
-                    let {id, email, login} = data.data
-                    this.props.setAuthUserData(id, email, login)
-                }
-            })
-
+        this.props.setAuthUserData()
     }
 
     render() {
@@ -47,4 +38,4 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
 }
 
 export default connect(mapStateToProps,
-    {setAuthUserData, toggleIsFetching})(HeaderContainer)
+    {setAuthUserData})(HeaderContainer)

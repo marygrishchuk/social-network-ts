@@ -1,31 +1,38 @@
 import {ActionTypes} from "./redux-store";
-import {UserType} from "./users-reducer";
+import {setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, UserType} from "./users-reducer";
+import {Dispatch} from "redux";
+import {userAPI} from "../api/api";
 
-export type navbarACTypes =
-    | ReturnType<typeof toggleIsFetching>
-
+export type navbarACTypes = ReturnType<typeof setFriendsSuccess>
 
 export type NavBarType = {
-    isFetching: boolean
+    friends: Array<UserType>
 }
 
 let initialState: NavBarType = {
-    isFetching: false
+    friends: []
 }
 
 const navbarReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case "TOGGLE_IS_FETCHING": {
+        case "SET_FRIENDS":
             return {
                 ...state,
-                isFetching: action.isFetching
+                friends: action.friends
             }
-        }
         default:
             return state;
+
     }
 }
 
-export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
+const setFriendsSuccess = (friends: UserType) => ({type: "SET_FRIENDS", friends} as const)
+
+export const setFriends = () => (dispatch: Dispatch) => {
+    userAPI.getFriends().then(data => {
+        let friends = data.items.filter((i: UserType) => i.followed === true)
+        dispatch(setFriendsSuccess(friends))
+    })
+}
 
 export default navbarReducer
