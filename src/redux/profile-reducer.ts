@@ -6,7 +6,7 @@ import {setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching} from "./
 
 export type profileACTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setLikedActionCreator>
-    | ReturnType<typeof setUserProfileSuccess>
+    | ReturnType<typeof setUserProfile>
 
 export type ProfileType = {
     aboutMe: null | string
@@ -149,12 +149,12 @@ export const updateNewPostTextActionCreator = (text: string) =>
 export const setLikedActionCreator = (postId: string, liked: boolean) =>
     ({type: SET_LIKED, postId: postId, liked: liked} as const)
 
-export const setUserProfileSuccess = (profile: ProfileType) =>
+const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 
-export const setUserProfile = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getUserProfile(userId).then(data => {
-        dispatch(setUserProfileSuccess(data))
+        dispatch(setUserProfile(data))
     })
 }
 

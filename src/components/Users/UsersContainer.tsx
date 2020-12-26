@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {follow, getUsers, unfollow, UserType} from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {setFriends} from "../../redux/navbar-reducer";
+import {removeFriend, setFriends} from "../../redux/navbar-reducer";
 
 
 type PropsType = {
@@ -17,19 +17,20 @@ type PropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     getUsers: (currentPage: number, pageSize: number) => void
-    setFriends: () => void
+    setFriends: (currentPage: number, pageSize: number) => void
+    removeFriend: (userId: string) => void
 }
 
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
-        this.props.setFriends()
+        this.props.setFriends(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => { //arrow syntax is needed to save the call context
         this.props.getUsers(pageNumber, this.props.pageSize)
-        this.props.setFriends()
+        this.props.setFriends(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -44,6 +45,7 @@ class UsersContainer extends React.Component<PropsType> {
                 unfollow={this.props.unfollow}
                 followingInProgress={this.props.followingInProgress}
                 setFriends={this.props.setFriends}
+                removeFriend={this.props.removeFriend}
                 onPageChanged={this.onPageChanged}/>
         </>
     }
@@ -69,4 +71,4 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {follow, unfollow, getUsers, setFriends})(UsersContainer)
+export default connect(mapStateToProps, {follow, unfollow, getUsers, setFriends, removeFriend})(UsersContainer)

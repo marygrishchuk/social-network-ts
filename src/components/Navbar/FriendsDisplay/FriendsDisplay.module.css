@@ -14,3 +14,8 @@
     flex-direction: row;
     font-family: "Microsoft Sans Serif";
 }
+
+.item {
+    width: 56px;
+    overflow: hidden;
+}

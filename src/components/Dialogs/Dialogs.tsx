@@ -3,14 +3,15 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Messages/Message";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
+import { Redirect } from "react-router-dom";
 
-type PropsType = {
+export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     sendMessage: () => void
     updateNewMessageBody: (newMessageText: string) => void
 }
 
-export const Dialogs = (props: PropsType) => {
+export const Dialogs = (props: DialogsPropsType) => {
     let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map(d => <DialogItem avatar={d.avatar} friendName={d.name}

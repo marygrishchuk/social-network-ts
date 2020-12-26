@@ -3,14 +3,16 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import userPhoto from "../../../assets/images/user-photo.png"
 import {UserType} from "../../../redux/users-reducer";
+import Preloader from "../../common/Preloader/Preloader";
 
 type PropsType = {
     friends: Array<UserType>
 }
 export const FriendsDisplay = (props: PropsType) => {
-    let friends = props.friends.filter((i, index) => (index < 3))
+
+    let friends = props.friends && props.friends.filter((i, index) => (index < 3))
         .map((f) => {
-                return <span key={f.id}>
+                return <span key={f.id} className={s.item}>
         <NavLink to={'/profile/' + f.id}>
                 <img src={f.photos.small != null ? f.photos.small : userPhoto}/>
             </NavLink>
