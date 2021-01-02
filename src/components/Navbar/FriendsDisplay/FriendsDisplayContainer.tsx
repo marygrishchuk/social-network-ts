@@ -2,10 +2,12 @@ import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
 import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {UserType} from "../../../redux/users-reducer";
-import {setFriends} from "../../../redux/navbar-reducer";
+import {follow, getUsers, unfollow, UserType} from "../../../redux/users-reducer";
+import {removeFriend, setFriends} from "../../../redux/navbar-reducer";
 import Preloader from "../../common/Preloader/Preloader";
 import s from "./FriendsDisplay.module.css";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 type PropsType = {
     friends: Array<UserType>
@@ -45,4 +47,5 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {setFriends})(FriendsDisplayContainer)
+export default compose<React.ComponentType>(connect(mapStateToProps, {setFriends}),
+    withAuthRedirect)(FriendsDisplayContainer)
