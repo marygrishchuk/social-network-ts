@@ -7,7 +7,7 @@ import {followSuccess, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFet
 export type profileACTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setLikedActionCreator>
     | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof updateStatusSuccess>
+    | ReturnType<typeof setStatus>
 
 export type ProfileType = {
     aboutMe: string
@@ -46,11 +46,12 @@ export type ProfilePageType = {
     status: string
 }
 
+//not necessary part since TypeScript is used:
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_LIKED = "SET-LIKED";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
-const UPDATE_STATUS = "UPDATE_STATUS";
+const SET_STATUS = "SET_STATUS";
 
 let initialState: ProfilePageType = {
     posts: [
@@ -140,7 +141,7 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
             return stateCopy;
         case SET_USER_PROFILE:
             return {...state, profile: action.profile};
-        case UPDATE_STATUS:
+        case SET_STATUS:
             return {...state, status: action.status};
         default:
             return state;
@@ -158,15 +159,15 @@ export const setLikedActionCreator = (postId: string, liked: boolean) =>
 const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 
-const updateStatusSuccess = (status: string) =>
-    ({type: UPDATE_STATUS, status} as const)
+const setStatus = (status: string) =>
+    ({type: SET_STATUS, status} as const)
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getUserProfile(userId).then(data => {
         dispatch(setUserProfile(data))
     })
     profileAPI.getStatus(userId).then(data => {
-        dispatch(updateStatusSuccess(data))
+        dispatch(setStatus(data))
     })
 }
 
@@ -174,7 +175,7 @@ export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
     let trimmedStatus = status.trim()
     profileAPI.updateStatus(trimmedStatus).then(data => {
         if (data.resultCode === 0) {
-            dispatch(updateStatusSuccess(trimmedStatus))
+            dispatch(setStatus(trimmedStatus))
         }
     })
 }

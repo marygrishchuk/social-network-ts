@@ -6,15 +6,21 @@ type PropsType = {
     updateUserStatus: (status: string) => void
 }
 
+type StateType = {
+    editMode: boolean
+    statusText: string
+}
+
 export class ProfileStatus extends React.Component<PropsType> {
-    state = {
+    state: StateType = {
         editMode: false,
         statusText: this.props.status
     }
 
     activateEditMode = () => {
         this.setState({
-            editMode: true
+            editMode: true,
+            statusText: this.props.status
         })
     }
 
@@ -29,6 +35,14 @@ export class ProfileStatus extends React.Component<PropsType> {
         this.setState({
             statusText: inputValue
         })
+    }
+
+    componentDitUpdate(prevProps: PropsType, prevState: StateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                statusText: this.props.status
+            })
+        }
     }
 
     render() {
