@@ -10,17 +10,15 @@ export type DialogType = {
 export type MessageType = {
     id: string
     message: string
-    avatar: string
+    isSentByMe: boolean
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessageText: string
 }
-export type dialogsACTypes = ReturnType<typeof sendMessageCreator> | ReturnType<typeof updateNewMessageBodyCreator>
+export type dialogsACTypes = ReturnType<typeof sendMessageCreator>
 
 const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 
 let initialState: DialogsPageType = {
     dialogs: [
@@ -32,57 +30,46 @@ let initialState: DialogsPageType = {
         {
             id: v1(),
             name: "Andrey",
-            avatar: "https://yt3.ggpht.com/a/AATXAJwpXLyeWh28awYmQxqSPXIM6q9eyw4vbkkCf-nJ=s176-c-k-c0x00ffffff-no-rj-mo"
+            avatar: userPhoto
         },
         {
             id: v1(),
             name: "Sveta",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
+            avatar: userPhoto
         },
         {
             id: v1(),
             name: "Sasha",
-            avatar: "https://yt3.ggpht.com/a/AATXAJx3tMtZZ9FJWqyZZo8YorLE948V2Fo4dSN3DnrzQQ=s176-c-k-c0x00ffffff-no-rj-mo"
+            avatar: userPhoto
         },
         {
             id: v1(),
             name: "Victor",
-            avatar: "https://yt3.ggpht.com/a/AATXAJyx6cm5wmcNQDxMqOnQn-PWLGuUphBLcEZGuIaYYA=s176-c-k-c0x00ffffff-no-rj-mo"
+            avatar: userPhoto
         },
         {
             id: v1(),
             name: "Valera",
-            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnjOdeIgaYOFx1p9q_XwIUEYfaQsyBDTcC0g&usqp=CAU"
+            avatar: userPhoto
         }
     ],
     messages: [
         {
             id: v1(),
             message: "Hi",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
+            isSentByMe: false,
         },
         {
             id: v1(),
             message: "What's up?",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
+            isSentByMe: true,
         },
         {
             id: v1(),
             message: "All good)",
-            avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
-        },
-        {
-            id: v1(),
-            message: "How are you?",
-            avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
-        },
-        {
-            id: v1(),
-            message: "I'm fine too",
-            avatar: "https://yt3.ggpht.com/a/AATXAJxOgKlQ3vhAxrV93fA6igEnvBQQfJyvVblmUkCCUw=s176-c-k-c0x00ffffff-no-rj-mo"
+            isSentByMe: false,
         }
-    ],
-    newMessageText: ""
+    ]
 }
 
 const dialogsReducer = (state = initialState, action: ActionTypes) => {
@@ -90,30 +77,18 @@ const dialogsReducer = (state = initialState, action: ActionTypes) => {
         case SEND_MESSAGE:
             let newMessage = {
                 id: v1(),
-                message: state.newMessageText,
-                avatar: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg"
+                message: action.newMessageText,
+                isSentByMe: true
             }
             return {
                 ...state,
-                messages: [...state.messages, newMessage],
-                newMessageText: ""
+                messages: [...state.messages, newMessage]
             }
-        case UPDATE_NEW_MESSAGE_BODY:
-            if (action.body) {
-                return {
-                    ...state,
-                    newMessageText: action.body
-                }
-            }
-            return state
         default:
             return state;
     }
 }
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE} as const)
-
-export const updateNewMessageBodyCreator = (text: string) =>
-    ({type: UPDATE_NEW_MESSAGE_BODY, body: text} as const)
+export const sendMessageCreator = (newMessageText: string) => ({type: SEND_MESSAGE, newMessageText} as const)
 
 export default dialogsReducer

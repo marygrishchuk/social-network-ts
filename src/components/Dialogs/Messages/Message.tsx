@@ -1,20 +1,24 @@
 import React from "react";
-import s from './Message.module.css'
+import s from './Message.module.css';
+import userPhoto from "../../../assets/images/user-photo.png"
 
 type PropsType = {
-    avatar: string
+    myAvatar: null | string
     message: string
+    isSentByMe: boolean
 }
 
 export const Message = (props: PropsType) => {
 
     return <div
-        className={props.avatar === "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg" ?
+        className={props.isSentByMe ?
             `${s.rightSide}` : `${s.leftSide}`}>
-        {props.avatar !== "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg" &&
-        <img src={props.avatar}/>}
+        {!props.isSentByMe &&
+        <img src={userPhoto}/>}
         <span className={s.message}> {props.message}</span>
-        {props.avatar === "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg" &&
-        <img src={props.avatar}/>}
+        {props.isSentByMe &&
+        <img src={props.myAvatar
+            ? props.myAvatar
+            : userPhoto}/>}
     </div>
 }

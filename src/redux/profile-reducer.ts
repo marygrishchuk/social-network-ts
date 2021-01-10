@@ -1,10 +1,9 @@
 import {v1} from "uuid";
 import {ActionTypes} from "./redux-store";
 import {Dispatch} from "redux";
-import {profileAPI, userAPI} from "../api/api";
-import {followSuccess, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching} from "./users-reducer";
+import {profileAPI} from "../api/api";
 
-export type profileACTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
+export type profileACTypes = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setLikedActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
@@ -26,29 +25,27 @@ export type ProfileType = {
     fullName: string
     userId: number
     photos: {
-        small: undefined | string
-        large: undefined | string
+        small: string
+        large: string
     }
 }
 
 export type PostType = {
     id: string
     name: string
-    avatarUrl: string
+    isSentByMe: boolean
     message: string
     liked: boolean
     likesCount: number
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: null | ProfileType
     status: string
 }
 
 //not necessary part since TypeScript is used:
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_LIKED = "SET-LIKED";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
@@ -58,7 +55,7 @@ let initialState: ProfilePageType = {
         {
             id: v1(),
             name: "Johanna Fox",
-            avatarUrl: "https://artsland.ru/files/logos/21246bb6c07d46c71f9b3e51dd7bf1da.png",
+            isSentByMe: false,
             message: "Hi! How are you?",
             liked: true,
             likesCount: 15
@@ -66,7 +63,7 @@ let initialState: ProfilePageType = {
         {
             id: v1(),
             name: "Kate Winsley",
-            avatarUrl: "https://www.spletnik.ru/thumb/310x310/img/persons/Eva-Mendes-post.jpg",
+            isSentByMe: false,
             message: "I've learned React.",
             liked: true,
             likesCount: 20
@@ -74,7 +71,7 @@ let initialState: ProfilePageType = {
         {
             id: v1(),
             name: "Fiona Smith",
-            avatarUrl: "https://sun9-53.userapi.com/impf/c846523/v846523336/486aa/WAmlS7FDlqo.jpg?size=400x0&quality=90&crop=6,0,488,488&sign=18d5b99310a2fbe958b38251cab6b5db&c_uniq_tag=arHi9u4Wz5f8hjjNrw4bqf5GiIihueE46UdzBj4g3y0&ava=1",
+            isSentByMe: false,
             message: "Happy Developer's Day!",
             liked: true,
             likesCount: 5
@@ -82,7 +79,7 @@ let initialState: ProfilePageType = {
         {
             id: v1(),
             name: "Bob Mayers",
-            avatarUrl: "https://bmstu.ru/ps/media/avatars/kartashov/IMG_4688223453130%20(2).jpeg",
+            isSentByMe: false,
             message: "Are we gonna have a class tomorrow?",
             liked: false,
             likesCount: 1
@@ -90,12 +87,11 @@ let initialState: ProfilePageType = {
         {
             id: v1(),
             name: "Sandra Dalton",
-            avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLTHcfkORUBugIE9Cw71xLu03aUrJIWsPMLg&usqp=CAU",
+            isSentByMe: false,
             message: "Let's get together tonight!:)",
             liked: true,
             likesCount: 7
         }],
-    newPostText: "",
     profile: null,
     status: ""
 }
@@ -105,25 +101,16 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
         case ADD_POST:
             let newPost = {
                 id: v1(),
-                name: "Anna Bell",
-                avatarUrl: "https://i.pinimg.com/originals/5f/4f/2b/5f4f2b6eb1e078bc99c043330879c143.jpg",
-                message: state.newPostText,
+                name: "me",
+                isSentByMe: true,
+                message: action.newPostText,
                 liked: false,
                 likesCount: 0
             }
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                newPostText: ""
             };
-        case UPDATE_NEW_POST_TEXT:
-            if (action.newText) {
-                return {
-                    ...state,
-                    newPostText: action.newText
-                }
-            }
-            return state
         case SET_LIKED:
             let stateCopy = {
                 ...state,
@@ -148,10 +135,7 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const)
-
-export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 
 export const setLikedActionCreator = (postId: string, liked: boolean) =>
     ({type: SET_LIKED, postId: postId, liked: liked} as const)
