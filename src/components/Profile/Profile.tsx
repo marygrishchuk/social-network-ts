@@ -7,6 +7,7 @@ type PropsType = {
     profile: null | ProfileType
     status: string
     updateUserStatus: (status: string) => void
+    authUserId: string
 }
 
 

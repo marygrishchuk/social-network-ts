@@ -5,8 +5,6 @@ import {follow, getUsers, unfollow, UserType} from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {removeFriend, setFriends} from "../../redux/navbar-reducer";
-import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type PropsType = {
@@ -73,11 +71,10 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {
-        follow,
-        unfollow,
-        getUsers,
-        setFriends,
-        removeFriend
-    }),
-    withAuthRedirect)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    getUsers,
+    setFriends,
+    removeFriend
+})(UsersContainer)

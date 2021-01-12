@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {RootStateType} from "../../redux/redux-store";
-import {submitLoginData} from "../../redux/auth-reducer";
+import {login} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
@@ -14,7 +14,7 @@ const LoginForm = (props: InjectedFormProps) => {
             <Field placeholder="Email" name={"email"} component={Input} validate={[required]}/>
         </div>
         <div>
-            <Field placeholder="Password" name={"password"} component={Input} validate={[required]}/>
+            <Field placeholder="Password" name={"password"} component={Input} validate={[required]} type={"password"}/>
         </div>
         <div>
             <Field component={"input"} name={"rememberMe"} type="checkbox"/> Remember me
@@ -28,13 +28,13 @@ const LoginForm = (props: InjectedFormProps) => {
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 type LoginType = {
-    submitLoginData: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean) => void
     isAuth: boolean
 }
 
 class Login extends React.Component<LoginType> {
     onSubmit = (formData: any) => {
-        this.props.submitLoginData(formData.email, formData.password, formData.rememberMe)
+        this.props.login(formData.email, formData.password, formData.rememberMe)
     }
 
     render() {
@@ -58,4 +58,4 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {submitLoginData})(Login)
+export default connect(mapStateToProps, {login})(Login)

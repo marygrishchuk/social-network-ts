@@ -9,6 +9,7 @@ type PropsType = {
     profile: null | ProfileType
     status: string
     updateUserStatus: (status: string) => void
+    authUserId: string
 }
 
 export const ProfileInfo = (props: PropsType) => {
@@ -31,7 +32,7 @@ export const ProfileInfo = (props: PropsType) => {
             <div>
             {props.profile ? props.profile.fullName : null}
             </div>
-            <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+            <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} authUserId={props.authUserId}/>
             <div>
             Looking for a job:
             {props.profile &&

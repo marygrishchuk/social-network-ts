@@ -4,6 +4,7 @@ import s from './ProfileInfo.module.css';
 type PropsType = {
     status: string
     updateUserStatus: (status: string) => void
+    authUserId: string
 }
 
 type StateType = {
@@ -47,7 +48,7 @@ export class ProfileStatus extends React.Component<PropsType> {
 
     render() {
         return <div className={s.description}>
-            {this.state.editMode
+            {this.props.authUserId && this.state.editMode
                 ? <div>
                     Status: <input autoFocus={true}
                                    value={this.state.statusText}
