@@ -3,7 +3,24 @@ import {PostType, ProfileType} from "../../../redux/profile-reducer";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
+const maxLength50 = maxLengthCreator(50)
+
+const AddNewPostForm = (props: InjectedFormProps) => {
+
+    return <form onSubmit={props.handleSubmit} className={s.newPost}>
+        <Field component={Textarea}
+               name={"newPostText"}
+               placeholder={"Add a Post"}
+               validate={[required, maxLength50]}
+               className={s.textArea}/>
+        <button className={s.addButton}>Add Post</button>
+    </form>
+}
+
+const AddNewPostFormRedux = reduxForm({form: "profileAddNewPostForm"})(AddNewPostForm)
 
 type PropsType = {
     posts: Array<PostType>
@@ -36,13 +53,3 @@ export const MyPosts = (props: PropsType) => {
         </div>
     </div>
 }
-
-const AddNewPostForm = (props: InjectedFormProps) => {
-
-    return <form onSubmit={props.handleSubmit} className={s.newPost}>
-        <Field component={"textArea"} name={"newPostText"} placeholder={"Add a Post"} className={s.textArea}/>
-        <button className={s.addButton}>Add Post</button>
-    </form>
-}
-
-const AddNewPostFormRedux = reduxForm({form: "profileAddNewPostForm"})(AddNewPostForm)

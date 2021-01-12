@@ -4,15 +4,17 @@ import {RootStateType} from "../../redux/redux-store";
 import {submitLoginData} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {required} from "../../utils/validators/validators";
+import {Input} from "../common/FormsControls/FormsControls";
 
 const LoginForm = (props: InjectedFormProps) => {
 
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field placeholder="Email" name={"email"} component={"input"}/>
+            <Field placeholder="Email" name={"email"} component={Input} validate={[required]}/>
         </div>
         <div>
-            <Field placeholder="Password" name={"password"} component={"input"}/>
+            <Field placeholder="Password" name={"password"} component={Input} validate={[required]}/>
         </div>
         <div>
             <Field component={"input"} name={"rememberMe"} type="checkbox"/> Remember me
