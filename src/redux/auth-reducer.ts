@@ -85,16 +85,20 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
 }
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha?: string) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
     authAPI.login(email, password, rememberMe, captcha).then(data => {
         if (data.resultCode === 0) {
+            dispatch(toggleIsFetching(false))
             dispatch(getAuthUserData() as any)
             dispatch(setServerErrorMessage(""))
             dispatch(setCaptchaURL(""))
         }
         if (data.resultCode === 1) {
+            dispatch(toggleIsFetching(false))
             dispatch(setServerErrorMessage(data.messages))
         }
         if (data.resultCode === 10) {
+            dispatch(toggleIsFetching(false))
             dispatch(setServerErrorMessage(data.messages))
             securityAPI.getCaptchaURL().then(data => {
                 dispatch(setCaptchaURL(data.url))

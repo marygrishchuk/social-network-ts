@@ -7,10 +7,12 @@ import {Redirect} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {Input} from "../common/FormsControls/FormsControls";
 import s from "./Login.module.css";
+import Preloader from "../common/Preloader/Preloader";
 
 type LoginFormPropsType = {
     serverErrorMessage: string
     captchaURL: string
+    isFetching: boolean
 }
 
 const LoginForm = (props: any & LoginFormPropsType) => {
@@ -37,7 +39,9 @@ const LoginForm = (props: any & LoginFormPropsType) => {
             </div>}
         </div>
         <div>
-            <button>Login</button>
+            {props.isFetching
+                ? <Preloader/>
+                : <button>Login</button>}
         </div>
     </form>
 }
@@ -49,6 +53,7 @@ type LoginType = {
     isAuth: boolean
     serverErrorMessage: string
     captchaURL: string
+    isFetching: boolean
 }
 
 class Login extends React.Component<LoginType> {
@@ -71,6 +76,7 @@ type MapStatePropsType = {
     isAuth: boolean
     serverErrorMessage: string
     captchaURL: string
+    isFetching: boolean
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
@@ -78,6 +84,7 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
         isAuth: state.auth.isAuth,
         serverErrorMessage: state.auth.serverErrorMessage,
         captchaURL: state.auth.captchaURL,
+        isFetching: state.auth.isFetching,
     }
 }
 
