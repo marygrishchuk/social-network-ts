@@ -10,7 +10,6 @@ import s from "./Login.module.css";
 import Preloader from "../common/Preloader/Preloader";
 
 type LoginFormPropsType = {
-    serverErrorMessage: string
     captchaURL: string
     isFetching: boolean
 }
@@ -28,7 +27,7 @@ const LoginForm = (props: any & LoginFormPropsType) => {
             <Field component={"input"} name={"rememberMe"} type="checkbox"/> Remember me
         </div>
         <div>
-            <span className={s.error}>{props.serverErrorMessage}</span>
+            {props.error && <div className={s.error}>{props.error}</div>}
             {props.captchaURL &&
             <div>
                 <img src={props.captchaURL}/>
@@ -51,7 +50,6 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 type LoginType = {
     login: (email: string, password: string, rememberMe: boolean, captcha?: string) => void
     isAuth: boolean
-    serverErrorMessage: string
     captchaURL: string
     isFetching: boolean
 }
@@ -74,7 +72,6 @@ class Login extends React.Component<LoginType> {
 
 type MapStatePropsType = {
     isAuth: boolean
-    serverErrorMessage: string
     captchaURL: string
     isFetching: boolean
 }
@@ -82,7 +79,6 @@ type MapStatePropsType = {
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
-        serverErrorMessage: state.auth.serverErrorMessage,
         captchaURL: state.auth.captchaURL,
         isFetching: state.auth.isFetching,
     }
