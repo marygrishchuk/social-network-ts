@@ -6,6 +6,7 @@ import usersReducer, {usersACTypes, UsersPageType} from "./users-reducer";
 import authReducer, {authACTypes, AuthType} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {FormState, reducer as formReducer} from 'redux-form';
+import appReducer, {appACTypes, AppReducerType} from "./app-reducer";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -14,9 +15,10 @@ export type RootStateType = {
     usersPage: UsersPageType
     auth: AuthType
     form: FormState
+    app: AppReducerType
 }
 
-export type ActionTypes = profileACTypes | dialogsACTypes | usersACTypes | authACTypes | navbarACTypes
+export type ActionTypes = profileACTypes | dialogsACTypes | usersACTypes | authACTypes | navbarACTypes | appACTypes
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -24,7 +26,8 @@ let reducers = combineReducers({
     navBar: navbarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer,
 }) //above are branches of the global state
 
 let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware))

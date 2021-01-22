@@ -3,7 +3,6 @@
     text-align: center;
     font-size: large;
     background-color: #abadae;
-    /*background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Blue%20Geometic%20Cubes%204K367679810.jpg");*/
     background-size: cover;
     padding-bottom: 300px;
 }
@@ -18,12 +17,12 @@
 .nav a.active {
     font-weight: bolder;
     text-decoration: underline;
-    color: blue;
+    color: white;
 }
 
 .nav a {
-    font-weight: lighter;
-    color: white;
+    font-weight: bold;
+    color: #2e3e49;
     text-decoration: none;
 }
 

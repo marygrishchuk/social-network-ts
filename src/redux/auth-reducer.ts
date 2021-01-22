@@ -61,13 +61,13 @@ const setCaptchaURL = (captchaURL: string) => ({type: SET_CAPTCHA_URL, captchaUR
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.me().then(data => {
+    return authAPI.me().then(data => {
         dispatch(toggleIsFetching(true))
         if (data.resultCode === 0) {
             dispatch(toggleIsFetching(false))
             let {id, email, login} = data.data
             dispatch(setAuthUserData(id, email, login, true))
-        }
+        } else dispatch(toggleIsFetching(false))
     })
 }
 
