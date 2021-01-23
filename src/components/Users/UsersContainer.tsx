@@ -3,13 +3,12 @@ import {RootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {follow, requestUsers, unfollow, UserType} from "../../redux/users-reducer";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
-import {removeFriend, addFriend, getFriendsFromPage} from "../../redux/navbar-reducer";
+import {addFriend, getFriendsFromPage, removeFriend} from "../../redux/navbar-reducer";
 import {
     getCurrentPage,
     getFollowingProgress,
     getIsFetching,
-    getPage,
+    getPageSize,
     getTotalUsersCount,
     getUsers
 } from "../../redux/users-selectors";
@@ -71,7 +70,7 @@ type MapStatePropsType = {
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
-        pageSize: getPage(state),
+        pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),

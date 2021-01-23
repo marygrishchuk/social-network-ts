@@ -8,7 +8,6 @@ type PropsType = {
     friends: Array<FriendDisplayType>
 }
 export const FriendsDisplay = (props: PropsType) => {
-
     let friends = props.friends.filter((i, index) => (index < 3))
         .map((f) => {
                 return <span key={f.userId} className={s.item}>

@@ -4,7 +4,7 @@ export const getUsers = (state: RootStateType) => {
     return state.usersPage.users
 }
 
-export const getPage = (state: RootStateType) => {
+export const getPageSize = (state: RootStateType) => {
     return state.usersPage.pageSize
 }
 

@@ -2,44 +2,35 @@ import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
 import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
+import {FriendDisplayType, getFriendsFromPage} from "../../../redux/navbar-reducer";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
-import {NavLink} from "react-router-dom";
-import {FriendDisplayType} from "../../../redux/navbar-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-type PropsType = {
+type PathParamsType = {}
+
+type PropsType = RouteComponentProps<PathParamsType> & {
     friends: Array<FriendDisplayType>
-    currentPage: number
-    pageSize: number
-    isFetchingFriends: boolean
+    isAuth: boolean
 }
 
 class FriendsDisplayContainer extends React.Component<PropsType> {
     render() {
-        return <>
-            {this.props.friends.length === 0
-                ? <button><NavLink to="/users">Find Friends</NavLink></button>
-                : <FriendsDisplay friends={this.props.friends}/>}
-        </>
+        if (!this.props.isAuth) return null
+        return <FriendsDisplay friends={this.props.friends}/>
     }
 }
 
-
 type MapStatePropsType = {
     friends: Array<FriendDisplayType>
-    currentPage: number
-    pageSize: number
-    isFetchingFriends: boolean
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         friends: state.navBar.friends,
-        currentPage: state.usersPage.currentPage,
-        pageSize: state.usersPage.pageSize,
-        isFetchingFriends: state.navBar.isFetchingFriends
+        isAuth: state.auth.isAuth
     }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {}),
-    withAuthRedirect)(FriendsDisplayContainer)
+export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, {getFriendsFromPage}))(FriendsDisplayContainer)
+//withRouter is necessary here as well as in App.tsx for functioning of FriendsDisplay that contains Navlink
