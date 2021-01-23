@@ -2,7 +2,7 @@ import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
 import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {FriendDisplayType, getFriendsFromPage} from "../../../redux/navbar-reducer";
+import {FriendDisplayType} from "../../../redux/navbar-reducer";
 import {compose} from "redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
@@ -32,5 +32,5 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, {getFriendsFromPage}))(FriendsDisplayContainer)
+export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, {}))(FriendsDisplayContainer)
 //withRouter is necessary here as well as in App.tsx for functioning of FriendsDisplay that contains Navlink
