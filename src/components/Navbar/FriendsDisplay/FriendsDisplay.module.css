@@ -18,4 +18,5 @@
 .item {
     width: 56px;
     overflow: hidden;
+    margin: 2px;
 }

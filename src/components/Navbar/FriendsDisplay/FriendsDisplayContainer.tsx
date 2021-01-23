@@ -2,29 +2,23 @@ import React from "react";
 import {FriendsDisplay} from "./FriendsDisplay";
 import {RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {follow, getUsers, unfollow, UserType} from "../../../redux/users-reducer";
-import {removeFriend, setFriends} from "../../../redux/navbar-reducer";
-import Preloader from "../../common/Preloader/Preloader";
-import s from "./FriendsDisplay.module.css";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {NavLink} from "react-router-dom";
+import {FriendDisplayType} from "../../../redux/navbar-reducer";
 
 type PropsType = {
-    friends: Array<UserType>
+    friends: Array<FriendDisplayType>
     currentPage: number
     pageSize: number
     isFetchingFriends: boolean
-    setFriends: (currentPage: number, pageSize: number) => void
 }
 
 class FriendsDisplayContainer extends React.Component<PropsType> {
-    componentDidMount() {
-        this.props.setFriends(this.props.currentPage, this.props.pageSize)
-    }
     render() {
         return <>
-            {this.props.isFetchingFriends
-                ? <Preloader />
+            {this.props.friends.length === 0
+                ? <button><NavLink to="/users">Find Friends</NavLink></button>
                 : <FriendsDisplay friends={this.props.friends}/>}
         </>
     }
@@ -32,7 +26,7 @@ class FriendsDisplayContainer extends React.Component<PropsType> {
 
 
 type MapStatePropsType = {
-    friends: Array<UserType>
+    friends: Array<FriendDisplayType>
     currentPage: number
     pageSize: number
     isFetchingFriends: boolean
@@ -47,5 +41,5 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     }
 }
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {setFriends}),
+export default compose<React.ComponentType>(connect(mapStateToProps, {}),
     withAuthRedirect)(FriendsDisplayContainer)

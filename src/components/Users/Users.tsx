@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/user-photo.png"
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {followAPI} from "../../api/api";
+import Preloader from "../common/Preloader/Preloader";
 
 type PropsType = {
     users: Array<UserType>
@@ -14,8 +15,9 @@ type PropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onPageChanged: (currentPage: number) => void
-    setFriends: (currentPage: number, pageSize: number) => void
+    addFriend: (userId: string) => void
     removeFriend: (userId: string) => void
+    isFetching: boolean
 }
 
 const Users = (props: PropsType) => {
@@ -54,42 +56,48 @@ const Users = (props: PropsType) => {
             }}>&#62;</button>
             <span className={s.selected}>  {props.currentPage}</span>
         </div>
-        {props.users.map((u: any) => <div key={u.id}>
+        {props.isFetching
+            ? <Preloader/>
+            : <> {props.users.map((u: any) => <div key={u.id}>
 
-            <div className={s.spanBlock}>
-                <div className={s.divBlock + " " + s.photoBtnBlock}>
-                    <div>
-                        <NavLink to={'/profile/' + u.id}>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
-                        </NavLink>
+                <div className={s.spanBlock}>
+                    <div className={s.divBlock + " " + s.photoBtnBlock}>
+                        <div>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={s.userPhoto}/>
+                            </NavLink>
+                        </div>
+                        <div>
+                            {u.followed
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                          onClick={() => {
+                                              props.unfollow(u.id)
+                                              props.removeFriend(u.id)
+                                          }}>Unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                          onClick={() => {
+                                              props.follow(u.id)
+                                              props.addFriend(u.id)
+                                          }}>Follow</button>
+                            }
+                        </div>
                     </div>
-                    <div>
-                        {u.followed
-                            ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => {
-                                          props.unfollow(u.id)
-                                          props.removeFriend(u.id)
-                                      }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                      onClick={() => {
-                                          props.follow(u.id)
-                                          props.setFriends(props.currentPage, props.pageSize)
-                                      }}>Follow</button>
-                        }
+                    <div className={s.spanBlock + " " + s.textInfoBlock}>
+                        <div className={s.divBlock + " " + s.nameStatusBlock}>
+                            <div>{u.name}</div>
+                            <div>{u.status}</div>
+                        </div>
+                        <div className={s.divBlock + " " + s.cityCountryBlock}>
+                            <div>{"u.location.city"}</div>
+                            <div>{"u.location.country"}</div>
+                        </div>
                     </div>
                 </div>
-                <div className={s.spanBlock + " " + s.textInfoBlock}>
-                    <div className={s.divBlock + " " + s.nameStatusBlock}>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </div>
-                    <div className={s.divBlock + " " + s.cityCountryBlock}>
-                        <div>{"u.location.city"}</div>
-                        <div>{"u.location.country"}</div>
-                    </div>
-                </div>
-            </div>
-        </div>)}
+            </div>)
+            }
+            </>
+        }
     </div>
 }
 
