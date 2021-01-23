@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user-photo.png"
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../api/api";
 import Preloader from "../common/Preloader/Preloader";
 
 type PropsType = {
@@ -18,6 +17,7 @@ type PropsType = {
     addFriend: (userId: string) => void
     removeFriend: (userId: string) => void
     isFetching: boolean
+    isAuth: boolean
 }
 
 const Users = (props: PropsType) => {
@@ -75,11 +75,16 @@ const Users = (props: PropsType) => {
                                               props.unfollow(u.id)
                                               props.removeFriend(u.id)
                                           }}>Unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                          onClick={() => {
-                                              props.follow(u.id)
-                                              props.addFriend(u.id)
-                                          }}>Follow</button>
+                                : <>
+                                    {props.isAuth
+                                        ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                                  onClick={() => {
+                                                      props.follow(u.id)
+                                                      props.addFriend(u.id)
+                                                  }}>Follow</button>
+                                        : <button><NavLink to="/login">Follow</NavLink></button>
+                                    }
+                                </>
                             }
                         </div>
                     </div>

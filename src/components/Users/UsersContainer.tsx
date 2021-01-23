@@ -27,6 +27,7 @@ type PropsType = {
     getFriendsFromPage: (currentPage: number, pageSize: number) => void
     addFriend: (userId: string) => void
     removeFriend: (userId: string) => void
+    isAuth: boolean
 }
 
 class UsersContainer extends React.Component<PropsType> {
@@ -54,6 +55,7 @@ class UsersContainer extends React.Component<PropsType> {
             removeFriend={this.props.removeFriend}
             onPageChanged={this.onPageChanged}
             isFetching={this.props.isFetching}
+            isAuth={this.props.isAuth}
         />
     }
 }
@@ -65,6 +67,7 @@ type MapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<boolean | string>
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
@@ -74,7 +77,8 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        followingInProgress: getFollowingProgress(state)
+        followingInProgress: getFollowingProgress(state),
+        isAuth: state.auth.isAuth
     }
 }
 
