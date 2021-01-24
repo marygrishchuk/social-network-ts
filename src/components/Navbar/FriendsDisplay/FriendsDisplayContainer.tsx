@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {FriendDisplayType} from "../../../redux/navbar-reducer";
 import {compose} from "redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 type PathParamsType = {}
 
