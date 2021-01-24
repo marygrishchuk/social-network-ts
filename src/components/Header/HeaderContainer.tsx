@@ -8,6 +8,7 @@ type PropsType = {
     isFetching: boolean
     isAuth: boolean
     login: string
+    id: string
     logout: () => void
 }
 
@@ -21,13 +22,15 @@ type MapStatePropsType = {
     isAuth: boolean
     login: string
     isFetching: boolean
+    id: string
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.login,
-        isFetching: state.auth.isFetching
+        isFetching: state.auth.isFetching,
+        id: state.auth.id
     }
 }
 

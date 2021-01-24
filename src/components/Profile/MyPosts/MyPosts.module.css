@@ -19,16 +19,9 @@
 
 .addButton {
     grid-area: addBtn;
-    border-radius: 3px;
-    background-color: slategray;
-    color: white;
-    border-style: hidden;
-    font-family: "Microsoft Sans Serif";
-    font-size: smaller;
     margin: 1px;
     height: 30px;
     width: 80px;
-    cursor: pointer;
 }
 
 .posts {

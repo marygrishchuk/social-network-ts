@@ -63,8 +63,8 @@ class UsersContainer extends React.Component<PropsType> {
 type MapStatePropsType = {
     users: Array<UserType>
     pageSize: number
-    totalUsersCount: number
     currentPage: number
+    totalUsersCount: number
     isFetching: boolean
     followingInProgress: Array<boolean | string>
     isAuth: boolean
@@ -74,8 +74,8 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
+        totalUsersCount: getTotalUsersCount(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingProgress(state),
         isAuth: state.auth.isAuth
