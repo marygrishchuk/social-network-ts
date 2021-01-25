@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profile-reducer";
 import userPhoto from "../../../assets/images/user-photo.png";
 import Preloader from "../../common/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus"
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks"
 
 type PropsType = {
     profile: null | ProfileType
@@ -32,7 +32,7 @@ export const ProfileInfo = (props: PropsType) => {
             <div>
             {props.profile ? props.profile.fullName : null}
             </div>
-            <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} authUserId={props.authUserId}/>
+            <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} authUserId={props.authUserId}/>
             <div>
             Looking for a job:
             {props.profile &&

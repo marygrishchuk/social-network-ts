@@ -12,7 +12,7 @@ type StateType = {
     statusText: string
 }
 
-export class ProfileStatus extends React.Component<PropsType> {
+export class ProfileStatus extends React.Component<PropsType> {  //not used as the moment
     state: StateType = {
         editMode: false,
         statusText: this.props.status
