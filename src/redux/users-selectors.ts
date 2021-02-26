@@ -8,7 +8,7 @@ const getUsersSelector = (state: RootStateType) => {
 
 export const getUsers = createSelector(getUsersSelector, (users) => {
     return users.filter((u: UserType) => true) //as a sample of a selector from reselect
-})
+}) //we assigned a getUsers variable to createSelector() this way
 
 export const getPageSize = (state: RootStateType) => {
     return state.usersPage.pageSize

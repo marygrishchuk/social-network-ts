@@ -22,7 +22,7 @@ export const Header = (props: PropsType) => {
                 props.isAuth
                     ? <div>
                         <NavLink to={'/profile/' + props.id}>{props.login}</NavLink>
-                        <button onClick={props.logout}>Log out</button>
+                        <NavLink to={'/login'}><button onClick={props.logout}>Log out</button></NavLink>
                     </div>
                     : <NavLink to={'/login'}>Login</NavLink>
             }
