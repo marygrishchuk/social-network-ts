@@ -10,6 +10,7 @@ type PropsType = {
     status: string
     updateUserStatus: (status: string) => void
     authUserId: string
+    isFetching: boolean
 }
 
 export const ProfileInfo = (props: PropsType) => {
@@ -32,7 +33,11 @@ export const ProfileInfo = (props: PropsType) => {
             <div>
             {props.profile ? props.profile.fullName : null}
             </div>
-            <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} authUserId={props.authUserId}/>
+            <ProfileStatusWithHooks status={props.status}
+                                    updateUserStatus={props.updateUserStatus}
+                                    authUserId={props.authUserId}
+                                    isFetching={props.isFetching}
+            />
             <div>
             Looking for a job:
             {props.profile &&

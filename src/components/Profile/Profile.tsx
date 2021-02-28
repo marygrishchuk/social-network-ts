@@ -8,6 +8,7 @@ type PropsType = {
     status: string
     updateUserStatus: (status: string) => void
     authUserId: string
+    isFetching: boolean
 }
 
 

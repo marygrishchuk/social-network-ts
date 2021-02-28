@@ -14,6 +14,7 @@ export type PropsType = RouteComponentProps<PathParamsType> & {
     profile: null | ProfileType
     authUserId: string
     status: string
+    isFetching: boolean
     getUserProfile: (userId: string) => void
     updateUserStatus: (status: string) => void
 }
@@ -42,13 +43,15 @@ type MapStatePropsType = {
     profile: null | ProfileType
     authUserId: string
     status: string
+    isFetching: boolean
 }
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile, //state."global state branch",
         authUserId: state.auth.id,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        isFetching: state.profilePage.isFetching
     }
 }
 

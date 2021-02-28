@@ -7,6 +7,7 @@ export type profileACTypes = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setLikedActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof setIsFetching>
 
 export type ProfileType = {
     aboutMe: string
@@ -38,17 +39,20 @@ export type PostType = {
     liked: boolean
     likesCount: number
 }
+
 export type ProfilePageType = {
     posts: Array<PostType>
     profile: null | ProfileType
     status: string
+    isFetching: boolean
 }
 
 //not necessary part since TypeScript is used:
-const ADD_POST = "ADD-POST";
-const SET_LIKED = "SET-LIKED";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
+const ADD_POST = "SN/PROFILE/ADD-POST";
+const SET_LIKED = "SN/PROFILE/SET-LIKED";
+const SET_USER_PROFILE = "SN/PROFILE/SET_USER_PROFILE";
+const SET_STATUS = "SN/PROFILE/SET_STATUS";
+const SET_IS_FETCHING = "SN/PROFILE/SET_IS_FETCHING";
 
 let initialState: ProfilePageType = {
     posts: [
@@ -93,7 +97,8 @@ let initialState: ProfilePageType = {
             likesCount: 7
         }],
     profile: null,
-    status: ""
+    status: "",
+    isFetching: false
 }
 
 const profileReducer = (state = initialState, action: ActionTypes) => {
@@ -130,6 +135,8 @@ const profileReducer = (state = initialState, action: ActionTypes) => {
             return {...state, profile: action.profile};
         case SET_STATUS:
             return {...state, status: action.status};
+        case SET_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
         default:
             return state;
     }
@@ -146,19 +153,27 @@ const setUserProfile = (profile: ProfileType) =>
 const setStatus = (status: string) =>
     ({type: SET_STATUS, status} as const)
 
+const setIsFetching = (isFetching: boolean) => ({type: SET_IS_FETCHING, isFetching} as const)
+
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getUserProfile(userId).then(data => {
         dispatch(setUserProfile(data))
     })
+    dispatch(setIsFetching(true))
     profileAPI.getStatus(userId).then(data => {
-        dispatch(setStatus(data))
+        if (data) {
+            dispatch(setIsFetching(false))
+            dispatch(setStatus(data))
+        }
     })
 }
 
 export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
     let trimmedStatus = status.trim()
+    dispatch(setIsFetching(true))
     profileAPI.updateStatus(trimmedStatus).then(data => {
         if (data.resultCode === 0) {
+            dispatch(setIsFetching(false))
             dispatch(setStatus(trimmedStatus))
         }
     })
