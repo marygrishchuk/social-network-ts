@@ -1,6 +1,6 @@
-import {ActionTypes} from "./redux-store";
-import {Dispatch} from "redux";
+import {ActionTypes, RootStateType} from "./redux-store";
 import {getAuthUserData} from "./auth-reducer";
+import {ThunkDispatch} from "redux-thunk";
 
 export type appACTypes = ReturnType<typeof setInitialized>
 
