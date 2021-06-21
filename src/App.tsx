@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route, RouteComponentProps, withRouter} from 'react-router-dom'
+import {Redirect, Route, RouteComponentProps, Switch, withRouter} from 'react-router-dom'
 import {Navbar} from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import {News} from './components/News/News';
@@ -15,6 +15,16 @@ import {compose} from "redux";
 import {RootStateType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeApp} from "./redux/app-reducer";
+
+export const PATH = {
+    LOGIN: "/login",
+    DIALOGS: "/dialogs",
+    NEWS: "/news",
+    MUSIC: "/music",
+    PROFILE: "/profile",
+    USERS: "/users",
+    SETTINGS: "/settings",
+}
 
 type PathParamsType = {}
 
@@ -38,13 +48,17 @@ class App extends React.Component<PropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                    <Route path="/login" render={() => <LoginPage/>}/>
+                    <Switch>
+                        <Route exact path={['/', `${PATH.PROFILE}/:userId?`]} render={() => <ProfileContainer/>}/>
+                        <Route path={PATH.DIALOGS} render={() => <DialogsContainer/>}/>
+                        <Route path={PATH.NEWS} render={() => <News/>}/>
+                        <Route path={PATH.MUSIC} render={() => <Music/>}/>
+                        <Route path={PATH.USERS} render={() => <UsersContainer/>}/>
+                        <Route path={PATH.SETTINGS} render={() => <Settings/>}/>
+                        <Route path={PATH.LOGIN} render={() => <LoginPage/>}/>
+                        <Route path={'/404'} render={() => <div>404. Page Not Found</div>}/>
+                        <Redirect from={'*'} to={'/404'}/>
+                    </Switch>
                 </div>
             </div>
         );
