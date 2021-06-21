@@ -13,20 +13,17 @@ type PropsType = {
     isFetching: boolean
 }
 
-export const ProfileInfo = (props: PropsType) => {
+export const ProfileInfo = React.memo((props: PropsType) => {
 
     if (!props.profile) {
         return <Preloader/>
     }
 
     return <div className={s.profileInfo}>
-        {/*<div className={s.coverContainer}>*/}
-        {/*    <img className={s.profileCover}*/}
-        {/*         src="https://belarusfacts.by/upload/test/photos_png/Tourism/360/preview__3_.jpg"/>*/}
-        {/*</div>*/}
         <div className={s.avatarContainer}>
             {props.profile &&
-            <img className={s.avatar} src={props.profile.photos.large ? props.profile.photos.large : userPhoto}/>
+            <img className={s.avatar} src={props.profile.photos.large ? props.profile.photos.large : userPhoto}
+                 alt={"user's avatar"}/>
             }
         </div>
         <div className={s.description}>
@@ -45,4 +42,4 @@ export const ProfileInfo = (props: PropsType) => {
             </div>
         </div>
     </div>
-}
+})

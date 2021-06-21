@@ -14,8 +14,6 @@ type PropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onPageChanged: (currentPage: number) => void
-    addFriend: (userId: string) => void
-    removeFriend: (userId: string) => void
     isFetching: boolean
     isAuth: boolean
 }
@@ -36,11 +34,11 @@ const Users = (props: PropsType) => {
                     props.onPageChanged(props.currentPage - 1)
                 }
             }}>&#60;</button>
-            {pages.map(p => {
+            {pages.map((p, i) => {
                     if (p <= 5 || p === 10 || p === 50 || p === 100 || p === 150 || p === 200 || p === 250
                         || p === 300 || p === 350 || p === 400 || p === 450 || p === 500 || p === 550 || p === 600
                         || p === 650 || p === 700 || p === 750) {
-                        return <span className={props.currentPage === p ? s.selected : s.pageNumber}
+                        return <span key={i} className={props.currentPage === p ? s.selected : s.pageNumber}
                                      onClick={() => props.onPageChanged(p)}> {p} </span>
                     }
                 }
@@ -65,7 +63,7 @@ const Users = (props: PropsType) => {
                         <div>
                             <NavLink to={'/profile/' + u.id}>
                                 <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                     className={s.userPhoto}/>
+                                     className={s.userPhoto} alt={'userPhoto'}/>
                             </NavLink>
                         </div>
                         <div>
@@ -73,14 +71,12 @@ const Users = (props: PropsType) => {
                                 ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                                           onClick={() => {
                                               props.unfollow(u.id)
-                                              props.removeFriend(u.id)
                                           }}>Unfollow</button>
                                 : <>
                                     {props.isAuth
                                         ? <button disabled={props.followingInProgress.some(id => id === u.id)}
                                                   onClick={() => {
                                                       props.follow(u.id)
-                                                      props.addFriend(u.id)
                                                   }}>Follow</button>
                                         : <button><NavLink to="/login">Follow</NavLink></button>
                                     }

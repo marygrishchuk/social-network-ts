@@ -1,5 +1,6 @@
 import axios from "axios";
 import {config} from "../config";
+import { UserType } from "../redux/users-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -10,8 +11,9 @@ const instance = axios.create({
 })
 
 export const userAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10, friend?: boolean) {
+        let friendsOnly = friend || ''
+        return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}&friend=${friendsOnly}`)
             .then(response => response.data)
     },
 }
@@ -62,4 +64,11 @@ export const profileAPI = {
         return instance.put(`profile/status`, `status=${status}`)
             .then(response => response.data)
     },
+}
+
+//types
+type GetUsersResponseType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string | null
 }

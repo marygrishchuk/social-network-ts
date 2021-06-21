@@ -28,13 +28,17 @@ class ProfileContainer extends React.Component<PropsType> {
         }
         this.props.getUserProfile(userId)
     }
+
     componentDidUpdate(prevProps: PropsType, prevState: {}) {
         let userId = this.props.match.params.userId
-        userId && this.props.getUserProfile(userId)
+        if (prevProps.match.params.userId !== userId && userId) {
+            this.props.getUserProfile(userId)
+        }
     }
 
     render() {
-        if (this.props.authUserId === "" && this.props.match.params.userId === undefined) return <Redirect to={"/login"}/>
+        if (this.props.authUserId === "" && this.props.match.params.userId === undefined) return <Redirect
+            to={"/login"}/>
         return <Profile {...this.props} />
     }
 }

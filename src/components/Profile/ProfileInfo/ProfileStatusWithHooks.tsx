@@ -9,7 +9,7 @@ type PropsType = {
     isFetching: boolean
 }
 
-export const ProfileStatusWithHooks = (props: PropsType) => {
+export const ProfileStatusWithHooks = React.memo((props: PropsType) => {
 
     let [editMode, setEditMode] = useState(false)
     let [statusText, setStatusText] = useState(props.status)
@@ -54,4 +54,4 @@ export const ProfileStatusWithHooks = (props: PropsType) => {
                 </div>
         }
     </div>
-}
+})

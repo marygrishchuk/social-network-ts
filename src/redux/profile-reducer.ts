@@ -156,15 +156,16 @@ const setStatus = (status: string) =>
 const setIsFetching = (isFetching: boolean) => ({type: SET_IS_FETCHING, isFetching} as const)
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getUserProfile(userId).then(data => {
-        dispatch(setUserProfile(data))
-    })
     dispatch(setIsFetching(true))
-    profileAPI.getStatus(userId).then(data => {
-        if (data) {
-            dispatch(setIsFetching(false))
-            dispatch(setStatus(data))
-        }
+    let getProfilePromise: Promise<ProfileType> = profileAPI.getUserProfile(userId)
+    let getStatusPromise: Promise<string> = profileAPI.getStatus(userId)
+    Promise.all([getProfilePromise, getStatusPromise]).then(values => {
+        dispatch(setUserProfile(values[0]))
+        dispatch(setStatus(values[1]))
+        dispatch(setIsFetching(false))
+    }).catch(error => {
+        console.warn(error)
+        dispatch(setIsFetching(false))
     })
 }
 
