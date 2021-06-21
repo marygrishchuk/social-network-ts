@@ -6,9 +6,13 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
+type FormData = {
+    newPostText: string;
+}
+
 const maxLength50 = maxLengthCreator(50)
 
-const AddNewPostForm = (props: InjectedFormProps) => {
+const AddNewPostForm = (props: InjectedFormProps<FormData>) => {
 
     return <form onSubmit={props.handleSubmit} className={s.newPost}>
         <Field component={Textarea}
@@ -20,7 +24,7 @@ const AddNewPostForm = (props: InjectedFormProps) => {
     </form>
 }
 
-const AddNewPostFormRedux = reduxForm({form: "profileAddNewPostForm"})(AddNewPostForm)
+const AddNewPostFormRedux = reduxForm<FormData>({form: "profileAddNewPostForm"})(AddNewPostForm)
 
 type PropsType = {
     posts: Array<PostType>
@@ -29,9 +33,10 @@ type PropsType = {
     profile: null | ProfileType
 }
 
-export const MyPosts = (props: PropsType) => {
+export const MyPosts = React.memo((props: PropsType) => {
 
-    let postElements = props.posts.map(p => <Post postId={p.id}
+    let postElements = props.posts.map(p => <Post key={p.id}
+                                                  postId={p.id}
                                                   isSentByMe={p.isSentByMe}
                                                   name={p.name}
                                                   message={p.message}
@@ -41,7 +46,7 @@ export const MyPosts = (props: PropsType) => {
                                                   myAvatar={props.profile && props.profile.photos.small}
     />)
 
-    let onAddPost = (values: any) => {
+    let onAddPost = (values: FormData) => {
         props.addPost(values.newPostText)
     }
 
@@ -52,4 +57,4 @@ export const MyPosts = (props: PropsType) => {
             {postElements}
         </div>
     </div>
-}
+})
